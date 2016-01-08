@@ -63,6 +63,7 @@ nbactions.xml
 nb-configuration.xml
 .nb-gradle/
 
+### Symfony template
 /var/logs/*
 !var/logs/.gitkeep
 !/var/sessions
