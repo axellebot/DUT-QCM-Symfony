@@ -152,8 +152,8 @@
 
   <target name="server" description="Run server">
     <exec executable="php" failonerror="true">
-      <arg path="bin/console" />
-      <arg path="server:run" />
+      <arg value="bin/console" />
+      <arg value="server:run" />
     </exec>
   </target>
 
