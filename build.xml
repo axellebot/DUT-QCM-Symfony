@@ -6,9 +6,9 @@
   <property name="builddir" value="${workspace}/build" />
 
   <target name="build"
-  depends="prepare,vendors,parameters,lint,phploc,pdepend,phpcpd,phpmd-ci,phpcs-ci,phpdoc,phpunit,phpcb"/>
+  depends="prepare,vendors,parameters,lint,phploc,pdepend,phpcpd,phpmd-ci,phpcs-ci,phpdoc,phpunit"/>
 
-  <target name="build-parallel" depends="prepare,lint,tools-parallel,phpunit,phpcb"/>
+  <target name="build-parallel" depends="prepare,lint,tools-parallel,phpunit"/>
 
   <target name="tools-parallel" description="Run tools in parallel">
     <parallel threadCount="2">
