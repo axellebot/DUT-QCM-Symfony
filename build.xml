@@ -3,7 +3,7 @@
 <project name="QCM" default="build">
   <property name="workspace" value="${basedir}" />
   <property name="sourcedir" value="${basedir}/src" />
-  <property name="builddir" value="${workspace}/app/build" />
+  <property name="builddir" value="${workspace}/build" />
 
   <target name="build"
   depends="prepare,vendors,parameters,lint,phploc,pdepend,phpcpd,phpmd-ci,phpcs-ci,phpdoc,phpunit,phpcb"/>
@@ -75,7 +75,7 @@
     <exec executable="phpmd">
       <arg path="${basedir}/src" />
       <arg value="text" />
-      <arg value="${workspace}/app/phpmd.xml" />
+      <arg value="${workspace}/phpmd.xml" />
     </exec>
   </target>
 
@@ -83,7 +83,7 @@
     <exec executable="phpmd">
       <arg path="${sourcedir}" />
       <arg value="xml" />
-      <arg value="${workspace}/app/phpmd.xml" />
+      <arg value="${workspace}/phpmd.xml" />
       <arg value="--reportfile" />
       <arg value="${builddir}/logs/pmd.xml" />
     </exec>
@@ -122,7 +122,7 @@
   <target name="phpunit" description="Run unit tests with PHPUnit">
     <exec executable="phpunit" failonerror="true">
       <arg value="-c" />
-      <arg path="${basedir}/app/phpunit.xml" />
+      <arg path="${basedir}/phpunit.xml" />
     </exec>
   </target>
 
