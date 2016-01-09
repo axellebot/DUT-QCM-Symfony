@@ -6,7 +6,7 @@
   <property name="builddir" value="${workspace}/build" />
 
   <target name="build"
-  depends="prepare,vendors,parameters,lint,phploc,pdepend,phpcpd,phpmd-ci,phpcs-ci,phpdoc,phpunit,phpcb"/>
+  depends="prepare,vendors,parameters,server,lint,phploc,pdepend,phpcpd,phpmd-ci,phpcs-ci,phpdoc,phpunit,phpcb"/>
 
   <target name="build-parallel" depends="prepare,lint,tools-parallel,phpunit,phpcb"/>
 
@@ -147,6 +147,13 @@
     <exec executable="cp" failonerror="true">
       <arg path="app/config/parameters.yml.dist" />
       <arg path="app/config/parameters.yml" />
+    </exec>
+  </target>
+
+  <target name="server" description="Run server">
+    <exec executable="php" failonerror="true">
+      <arg path="bin/console" />
+      <arg path="server:run" />
     </exec>
   </target>
 
