@@ -2,7 +2,21 @@
     padding-left: 30px !important;
 }
 
-#login {
-    margin-top: 12%;
-    margin-bottom: 12%;
+html, body {
+    height: 100%;
+    margin: 0; padding: 0;
+}
+
+body {
+    display: flex;
+    min-height: 100%;
+    flex-direction: column;
+}
+
+header {
+    margin-bottom: 25px;
+}
+
+main {
+    flex: 1;
 }
