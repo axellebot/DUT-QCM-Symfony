@@ -1,44 +1,8 @@
-html, body {
-    height: 100%;
-    min-height: 100%;
+.nav-wrapper {
+    padding-left: 30px !important;
 }
 
-main {
-    position: relative;
-}
-
-td {
-    padding-top: 12px !important;
-    padding-bottom: 12px !important;
-    vertical-align: middle !important;
-}
-
-footer p {
-    text-align: center;
-    margin: auto;
-}
-
-.mdl-button--fab {
-    position: absolute !important;
-    right: 0px !important;
-    bottom: 0px !important;
-    margin-right: 8px !important;
-    margin-bottom: 8px !important;
-}
-
-label {
-    margin-bottom: 0 !important;
-}
-
-
-.mdl-layout__content {
-    flex: 1;
-    display: flex !important;
-    flex-flow: column !important;
-    /*align-items: center !important;
-    justify-content: center !important;*/
-}
-
-.mdl-card {
-    margin: auto;
+#login {
+    margin-top: 12%;
+    margin-bottom: 12%;
 }
