@@ -8,7 +8,7 @@ security:
             memory: ~
         our_db_provider:
             entity:
-                class: AppBundle:User
+                class: IUTQCMBundle:User
                 property: username
 
     firewalls:
@@ -22,10 +22,12 @@ security:
             form_login:
                 login_path: /login
                 check_path: /login_check
+                default_target_path: default_security_target
+                use_referer: true
             pattern:    ^/
             http_basic: ~
             provider: our_db_provider
 
     encoders:
-        AppBundle\Entity\User:
+        IUT\QCMBundle\Entity\User:
             algorithm: bcrypt

@@ -8,7 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="index")²
+     * @Route("/", name="index")
+     * @Route("/", name="default_security_target")
      */
     public function indexAction()
     {

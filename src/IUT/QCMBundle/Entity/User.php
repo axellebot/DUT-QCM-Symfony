@@ -15,8 +15,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ORM\Table(name="app_users")
- * @ORM\Entity(repositoryClass="AppBundle\Entity\UserRepository")
+ * @ORM\Table(name="users")
+ * @ORM\Entity(repositoryClass="IUT\QCMBundle\Entity\UserRepository")
  */
 class User implements UserInterface, \Serializable
 {
@@ -39,7 +39,7 @@ class User implements UserInterface, \Serializable
     private $plainPassword;
 
     /**
-     * @ORM\Column(type="string", length=64)
+     * @ORM\Column(type="string", length=255)
      */
     private $password;
 
@@ -83,7 +83,7 @@ class User implements UserInterface, \Serializable
     {
         // you *may* need a real salt depending on your encoder
         // see section on salt below
-        return null;
+        return 'test';
     }
 
     public function getPassword()

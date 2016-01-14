@@ -36,7 +36,7 @@ class Questionnaire
     private $nom;
 
     /**
-     * @OneToMany(targetEntity="Question",mappedBy="idQuestionnaire")
+     * @ORM\OneToMany(targetEntity="Question",mappedBy="idQuestionnaire")
      *
      * @ORM\Column(name="questions", type="integer")
      */
