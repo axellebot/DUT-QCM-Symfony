@@ -6,6 +6,10 @@ security:
     providers:
         in_memory:
             memory: ~
+        our_db_provider:
+            entity:
+                class: AppBundle:User
+                property: username
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -18,3 +22,10 @@ security:
             form_login:
                 login_path: /login
                 check_path: /login_check
+            pattern:    ^/
+            http_basic: ~
+            provider: our_db_provider
+
+    encoders:
+        AppBundle\Entity\User:
+            algorithm: bcrypt
