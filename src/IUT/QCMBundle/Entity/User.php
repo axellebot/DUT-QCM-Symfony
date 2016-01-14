@@ -65,6 +65,20 @@ class User implements UserInterface, \Serializable
         return $this->username;
     }
 
+    /**
+     * Set username
+     *
+     * @param string $username
+     *
+     * @return User
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
     public function getSalt()
     {
         // you *may* need a real salt depending on your encoder
@@ -75,6 +89,20 @@ class User implements UserInterface, \Serializable
     public function getPassword()
     {
         return $this->password;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     *
+     * @return User
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
     }
 
     public function getRoles()
@@ -121,31 +149,13 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * Set username
+     * Get email
      *
-     * @param string $username
-     *
-     * @return User
+     * @return string
      */
-    public function setUsername($username)
+    public function getEmail()
     {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    /**
-     * Set password
-     *
-     * @param string $password
-     *
-     * @return User
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-
-        return $this;
+        return $this->email;
     }
 
     /**
@@ -163,13 +173,13 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * Get email
+     * Get isActive
      *
-     * @return string
+     * @return boolean
      */
-    public function getEmail()
+    public function getIsActive()
     {
-        return $this->email;
+        return $this->isActive;
     }
 
     /**
@@ -184,16 +194,6 @@ class User implements UserInterface, \Serializable
         $this->isActive = $isActive;
 
         return $this;
-    }
-
-    /**
-     * Get isActive
-     *
-     * @return boolean
-     */
-    public function getIsActive()
-    {
-        return $this->isActive;
     }
 
     public function getPlainPassword()
