@@ -1,10 +1,36 @@
 {# app/Resources/views/registration/register.html.twig #}
+{# ... you will probably extends your base template, like base.html.twig #}
+{% extends 'base.html.twig' %}
 
-{{ form_start(form) }}
-    {{ form_row(form.username) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.plainPassword.first) }}
-    {{ form_row(form.plainPassword.second) }}
+{% block body %} {# modèle body <body>#}
 
-<button type="submit">Register!</button>
-{{ form_end(form) }}
+    <div class="row" id="register" class="">
+        <div class="col s12 m6 offset-m3 l6 offset-l3">
+            {{ form_start(form) }} {# modèle balise <form>#}
+            <div class="card hoverable">
+                <div class="card-content">
+                    <span class="card-title">Register</span>
+                    <div class="input-field">
+                        {{ form_row(form.username) }}
+
+                    </div>
+                    <div class="input-field">
+                        {{ form_row(form.email) }}
+                    </div>
+                    <div class="input-field">
+                        {{ form_row(form.plainPassword.first) }}
+                    </div>
+                    <div class="input-field">
+                        {{ form_row(form.plainPassword.second) }}
+                    </div>
+                </div>
+                <div class="card-action ">
+                    <button class=" btn waves-effect white red-text" type="submit">S'inscrire</button>
+                </div>
+            </div>
+            {{ form_end(form) }}{# modèle balise </form>#}
+        </div>
+    </div>
+
+
+{% endblock body %} {# modèle body </body>#}
