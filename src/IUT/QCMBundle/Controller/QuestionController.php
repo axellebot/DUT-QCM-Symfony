@@ -1,37 +1,44 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Ilias
+ * Date: 15/01/2016
+ * Time: 15:00
+ */
 
 namespace IUT\QCMBundle\Controller;
 
-use IUT\QCMBundle\Entity\Questionnaire;
+use IUT\QCMBundle\Entity\Question;
 use IUT\QCMBundle\Form\QuestionnaireType;
+use IUT\QCMBundle\Form\QuestionType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class QuestionnaireController extends Controller
+class QuestionController extends Controller
 {
     /**
-     * @Route("/add", name="add_questionnaire")
+     * @Route("/add/{id}", name="add_question", requirements={"id" = "\d+"})
      * @param Request $request
+     * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function addAction(Request $request)
+    public function addAction(Request $request, $id)
     {
-        $questionnaire = new Questionnaire();
-        $form = $this->createForm(QuestionnaireType::class, $questionnaire);
+        $question = new Question();
+        $form = $this->createForm(QuestionType::class, $question);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $questionnaire->setIdAuteur(-1);
-            $questionnaire->setQuestions('test');
+            $question->setIdQuestionnaire($id);
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($questionnaire);
+            $em->persist($question);
             $em->flush();
 
             return $this->redirect('/');
         }
         return $this->render(
-            '@IUTQCM/Default/questionnaire_add.html.twig',
+            '@IUTQCM/Default/question_add.html.twig',
             array('form' => $form->createView())
         );
     }
