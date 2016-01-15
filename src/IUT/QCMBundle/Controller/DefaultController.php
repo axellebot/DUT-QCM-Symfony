@@ -13,9 +13,12 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
+
+        $canAddQuestionnaire = true;
+
         $questionnaires = $this->getDoctrine()
             ->getRepository('IUTQCMBundle:Questionnaire')
             ->findAll();
-        return $this->render('IUTQCMBundle:Default:index.html.twig', array('questionnaires' => $questionnaires));
+        return $this->render('IUTQCMBundle:Default:index.html.twig', array('questionnaires' => $questionnaires, 'canAddQuestionnaire' => $canAddQuestionnaire));
     }
 }
