@@ -8,6 +8,18 @@
                 <div class="card hoverable">
                     <div class="card-content">
                         <span class="card-title">Listes des QCM</span>
+                        {% if questionnaires %}
+                            <div class="collection">
+                                {% for questionnaire in questionnaires %}
+                                    <a class="collection-item">
+                                        {{ questionnaire.nom }}
+                                        <button class="btn blue-grey white-text" href="">Afficher</button>
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p>Pas de questionnaire</p>
+                        {% endif %}
                     </div>
 
                 </div>
