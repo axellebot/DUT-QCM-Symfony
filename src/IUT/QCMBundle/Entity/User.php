@@ -49,6 +49,11 @@ class User implements UserInterface, \Serializable
     private $email;
 
     /**
+     * @ORM\Column(type="string", length=1, unique=false,nullable=false)
+     */
+    private $role;
+
+    /**
      * @ORM\Column(name="is_active", type="boolean")
      */
     private $isActive;
@@ -107,7 +112,20 @@ class User implements UserInterface, \Serializable
 
     public function getRoles()
     {
-        return array('ROLE_USER');
+
+        switch ($this->role) {
+            case 'S':
+            case 's':
+                return array('ROLE_SUPER_ADMIN');
+            case 'A':
+            case 'a':
+                return array('ROLE_ADMIN');
+            case 'P':
+            case 'p':
+                return array('ROLE_ADMIN');
+        }
+
+        return array('ROLE_ELEVE'); #Par défaut
     }
 
     public function eraseCredentials()
@@ -204,5 +222,29 @@ class User implements UserInterface, \Serializable
     public function setPlainPassword($password)
     {
         $this->plainPassword = $password;
+    }
+
+    /**
+     * Get role
+     *
+     * @return string
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    /**
+     * Set role
+     *
+     * @param string $role
+     *
+     * @return User
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
+
+        return $this;
     }
 }
