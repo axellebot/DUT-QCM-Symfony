@@ -1,0 +1,34 @@
+{# app/Resources/views/registration/register.html.twig #}
+{# ... you will probably extends your base template, like base.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %} {# modèle body <body>#}
+
+    <div class="row" id="questionnaire-add">
+        <div class="col s12 m6 offset-m3 l6 offset-l3">
+            {{ form_start(form) }} {# modèle balise <form>#}
+            <div class="card hoverable">
+                <div class="card-content">
+                    <span class="card-title">Ajout d'une question</span>
+                    <div class="input-field">
+                        {{ form_row(form.intitule) }}
+                    </div>
+                    <p class="range-field">
+                        {{ form_label(form.bareme) }}
+                        {{ form_widget(form.bareme) }}
+                    </p>
+                </div>
+                <div class="card-action center">
+                    <button class="btn waves-effect white  blue-grey-text" type="submit" name="action">
+                        <i class="material-icons left">add</i>
+                        <i class="material-icons right red-text">check</i>
+                    </button>
+                </div>
+            </div>
+            {{ form_end(form) }}{# modèle balise </form>#}
+        </div>
+    </div>
+
+
+{% endblock body %} {# modèle body </body>#}
+
