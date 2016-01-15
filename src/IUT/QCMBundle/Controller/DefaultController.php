@@ -16,6 +16,6 @@ class DefaultController extends Controller
         $questionnaires = $this->getDoctrine()
             ->getRepository('IUTQCMBundle:Questionnaire')
             ->findAll();
-        return $this->render('IUTQCMBundle:Default:index.html.twig', $questionnaires);
+        return $this->render('IUTQCMBundle:Default:index.html.twig', array('questionnaires' => $questionnaires));
     }
 }
