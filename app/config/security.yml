@@ -4,8 +4,6 @@ security:
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory:
-            memory: ~
         our_db_provider:
             entity:
                 class: IUTQCMBundle:User
@@ -31,3 +29,10 @@ security:
     encoders:
         IUT\QCMBundle\Entity\User:
             algorithm: bcrypt
+
+    role_hierarchy:
+    #Les Variables doivent commencer par "ROLE_"
+        ROLE_ADMIN:       ROLE_USER #Role de l'admin
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH] #Role de SUPER ADMIN
+        ROLE_PROF : #Role du prof
+        ROLE_ELEVE :  #Role de l'élève
