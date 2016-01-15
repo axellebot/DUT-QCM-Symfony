@@ -32,7 +32,7 @@ security:
 
     role_hierarchy:
     #Les Variables doivent commencer par "ROLE_"
-        ROLE_ADMIN:       ROLE_USER #Role de l'admin
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH] #Role de SUPER ADMIN
+        ROLE_ADMIN:       ROLE_USER #Role de l'admin
         ROLE_PROF : #Role du prof
         ROLE_ELEVE :  #Role de l'élève
