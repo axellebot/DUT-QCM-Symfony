@@ -16,7 +16,6 @@
                                 </li>
                             {% endfor %}
                         </ul>
-
                     {% else %}
                         <div class="center-align center">
                         <span class="black-text wi">
@@ -29,13 +28,22 @@
         </div>
     </div>
 
-    {% if canAddQuestionnaire %}
-    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-        <a class="btn-floating btn-large light-blue" href="/add">
-            <i class="large material-icons">add</i>
-        </a>
-    </div>
+    {% if canAddQuestionnaire==true %}
+        <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+            <a class="btn-floating btn-large light-blue tooltipped" data-position="left" data-delay="50"
+               data-tooltip="Créer QCM" href="/add">
+                <i class="large material-icons">add</i>
+            </a>
+        </div>
     {% endif %}
 
-{% endblock %}
+{% endblock body %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.tooltipped').tooltip({delay: 50});
+        })
+    </script>
+{% endblock javascripts %}
 
