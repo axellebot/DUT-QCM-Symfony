@@ -3,9 +3,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-{% if error %}
-    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-{% endif %}
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
 
     <div class="row" id="login" class="">
         <div class="col s12 m6 offset-m3 l6 offset-l3">
@@ -14,7 +14,8 @@
                     <div class="card-content">
                         <span class="card-title">Connexion</span>
                         <div class="input-field">
-                            <input class="validate" type="text" id="username" name="_username" value="{{ last_username }}" required/>
+                            <input class="validate" type="text" id="username" name="_username"
+                                   value="{{ last_username }}" required/>
                             <label for="username">Username</label>
                         </div>
                         <div class="input-field">
@@ -22,8 +23,10 @@
                             <label for="password">Password</label>
                         </div>
                     </div>
-                    <div class="card-action ">
-                        <button class="btn waves-effect white  blue-grey-text" type="submit">Se connecter</button>
+                    <div class="card-action center">
+                        <button class="btn waves-effect white  blue-grey-text" type="submit" name="action">
+                            Se connecter<i class="material-icons right">send</i>
+                        </button>
                     </div>
                 </div>
             </form>
