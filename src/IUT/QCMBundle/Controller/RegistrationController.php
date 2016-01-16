@@ -45,7 +45,7 @@ class RegistrationController extends Controller
             // ... do any other work - like send them an email, etc
             // maybe set a "flash" success message for the user
 
-            return $this->redirect('/');
+            return $this->redirect('/login');
         }
 
         return $this->render(
