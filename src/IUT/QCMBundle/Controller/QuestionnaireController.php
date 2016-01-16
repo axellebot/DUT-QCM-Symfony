@@ -28,7 +28,9 @@ class QuestionnaireController extends Controller
             $em->persist($questionnaire);
             $em->flush();
 
-            return $this->redirect('/');
+            return $this->redirect($this->generateUrl('add_question', array(
+                'id' => $questionnaire->getId()
+            )));
         }
         return $this->render(
             '@IUTQCM/Default/questionnaire_add.html.twig',
