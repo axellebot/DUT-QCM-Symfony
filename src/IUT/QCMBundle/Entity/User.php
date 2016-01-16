@@ -114,9 +114,6 @@ class User implements UserInterface, \Serializable
     {
 
         switch ($this->role) {
-            case 'S':
-            case 's':
-                return array('ROLE_SUPER_ADMIN');
             case 'A':
             case 'a':
                 return array('ROLE_ADMIN');
