@@ -3,6 +3,7 @@
 namespace IUT\QCMBundle\Controller;
 
 use IUT\QCMBundle\Entity\Questionnaire;
+use IUT\QCMBundle\Entity\User;
 use IUT\QCMBundle\Form\QuestionnaireType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,7 +22,11 @@ class QuestionnaireController extends Controller
         $form = $this->createForm(QuestionnaireType::class, $questionnaire);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $questionnaire->setIdAuteur(-1);
+            if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+                throw $this->createAccessDeniedException();
+            }
+            $user = $this->getUser();
+            $questionnaire->setIdAuteur($user->getId());
             $questionnaire->setQuestions('test');
 
             $em = $this->getDoctrine()->getManager();
