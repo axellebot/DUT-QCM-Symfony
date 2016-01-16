@@ -22,20 +22,26 @@
                 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
                     <li class="red"><a href="#"><i class="material-icons">supervisor_account</i></a></li>
                 {% endif %}
-
-                <li><a href="#"><i class="material-icons">home</i></a></li>
+                <li><a href="/"><i class="material-icons">home</i></a></li>
                 <li><a href="javascript:window.location.href=window.location.href"><i
                                 class="material-icons">refresh</i></a></li>
-                <li><a href="/logout"><i class="material-icons">power_settings_new</i></a></li>
+                {% if app.user %}
+                    <li><a href="/logout"><i class="material-icons">exit_to_app</i></a></li>
+                {% else %}
+                    <li><a href="/login"><i class="material-icons">vpn_key</i></a></li>
+                {% endif %}
             </ul>
             <ul class="side-nav" id="mobile-demo">
                 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
                     <li class="red"><a class="white-text" href="/admin">Administration</a></li>
                 {% endif %}
-                <li><a href="#">Accueil</a></li>
-                <li><a href="#">Rafraichir</a></li>
-                <li><a href="#">Se déconnecter</a></li>
-
+                <li><a href="/">Accueil</a></li>
+                <li><a href="javascript:window.location.href=window.location.href">Rafraichir</a></li>
+                {% if app.user %}
+                    <li><a href="/logout">Se déconnecter</a></li>
+                {% else %}
+                    <li><a href="/login">Se connecter</a></li>
+                {% endif %}
             </ul>
         </div>
     </nav>
@@ -77,7 +83,7 @@
 <script type="text/javascript" src="{{ asset('js/jquery-2.1.1.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/materialize.min.js') }}"></script>
 <script type="text/javascript">
-    $( document ).ready(function(){
+    $(document).ready(function () {
         $(".button-collapse").sideNav();
     })
 </script>
