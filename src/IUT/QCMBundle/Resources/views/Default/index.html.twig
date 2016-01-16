@@ -2,7 +2,7 @@
 
 {% block body %}
 
-    <div class="row" id="login" class="">
+    <div class="row">
         <div class="col s12 m6 offset-m3 l6 offset-l3">
             <div class="card hoverable">
                 <div class="card-content">
@@ -10,26 +10,45 @@
                         <ul class="collection with-header">
                             <li class="collection-header"><h4>Liste des questionnaires</h4></li>
                             {% for questionnaire in questionnaires %}
-                                <li class="collection-item">
-                                    <div>{{ questionnaire.nom }}
-                                        {% if canDeleteQuestionnaire %}
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <li class="collection-item">
+                                        <div>{{ questionnaire.nom }}
                                             <a href="" class="secondary-content">
                                                 <i class="material-icons">delete</i>
                                             </a>
-                                        {% endif %}
-                                        {% if canModifyQuestionnaire %}
                                             <a href="" class="secondary-content">
                                                 <i class="material-icons">mode_edit</i>
                                             </a>
-                                        {% endif %}
-                                        <a href="" class="secondary-content">
-                                            <i class="material-icons">visibility</i>
-                                        </a>
-
-
-                                        </a>
-                                    </div>
-                                </li>
+                                            <a href="" class="secondary-content">
+                                                <i class="material-icons">visibility</i>
+                                            </a>
+                                        </div>
+                                    </li>
+                                {% elseif is_granted('ROLE_PROF') %}
+                                    <li class="collection-item">
+                                        <div>{{ questionnaire.nom }}
+                                            {% if questionnaire.idAuteur == app.user.id %}
+                                                <a href="" class="secondary-content">
+                                                    <i class="material-icons">delete</i>
+                                                </a>
+                                                <a href="" class="secondary-content">
+                                                    <i class="material-icons">mode_edit</i>
+                                                </a>
+                                                <a href="" class="secondary-content">
+                                                    <i class="material-icons">visibility</i>
+                                                </a>
+                                            {% endif %}
+                                        </div>
+                                    </li>
+                                {% elseif is_granted('ROLE_ELEVE') %}
+                                    <li class="collection-item">
+                                        <div>{{ questionnaire.nom }}
+                                            <a href="" class="secondary-content">
+                                                <i class="material-icons">visibility</i>
+                                            </a>
+                                        </div>
+                                    </li>
+                                {% endif %}
                             {% endfor %}
                         </ul>
                     {% else %}
@@ -44,7 +63,8 @@
         </div>
     </div>
 
-    {% if canAddQuestionnaire==true %}
+
+    {% if is_granted("ROLE_ADMIN") or  is_granted("ROLE_PROF") %}
         <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
             <a class="btn-floating btn-large light-blue tooltipped" data-position="left" data-delay="50"
                data-tooltip="Créer QCM" href="/add">
