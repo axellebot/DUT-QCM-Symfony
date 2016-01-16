@@ -3,3 +3,5 @@ iutqcm:
     type:     annotation
     prefix:   /
 
+logout:
+    path:   /logout

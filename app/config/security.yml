@@ -26,6 +26,11 @@ security:
             http_basic: ~
             provider: our_db_provider
 
+            #Pour se logout
+            logout:
+                path:   /logout
+                target: /
+
     encoders:
         IUT\QCMBundle\Entity\User:
             algorithm: bcrypt
