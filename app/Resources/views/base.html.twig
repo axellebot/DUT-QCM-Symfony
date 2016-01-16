@@ -19,15 +19,23 @@
             <a href="/" class="brand-logo">QCM</a>
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
+                    <li class="red"><a href="#"><i class="material-icons">supervisor_account</i></a></li>
+                {% endif %}
+
                 <li><a href="#"><i class="material-icons">home</i></a></li>
                 <li><a href="javascript:window.location.href=window.location.href"><i
                                 class="material-icons">refresh</i></a></li>
                 <li><a href="/logout"><i class="material-icons">power_settings_new</i></a></li>
             </ul>
             <ul class="side-nav" id="mobile-demo">
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
+                    <li class="red"><a class="white-text" href="/admin">Administration</a></li>
+                {% endif %}
                 <li><a href="#">Accueil</a></li>
                 <li><a href="#">Rafraichir</a></li>
                 <li><a href="#">Se déconnecter</a></li>
+
             </ul>
         </div>
     </nav>
