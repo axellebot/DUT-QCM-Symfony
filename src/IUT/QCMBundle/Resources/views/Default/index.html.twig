@@ -6,21 +6,32 @@
         <div class="col s12 m6 offset-m3 l6 offset-l3">
             <div class="card hoverable">
                 <div class="card-content">
+                    <span class="card-title">Liste des questionnaires</span>
+
+                    {% if is_granted("ROLE_ADMIN") or  is_granted("ROLE_PROF") %}
+                        <a href="/add" class="right aligned btn-floating waves-effect btn light-blue tooltipped"
+                           data-position="left" data-delay="50"
+                           data-tooltip="Créer QCM">
+                            <i class="large material-icons">add</i>
+                        </a>
+                    {% endif %}
                     {% if questionnaires %}
-                        <ul class="collection with-header">
-                            <li class="collection-header"><h4>Liste des questionnaires</h4></li>
+                        <ul class="collection ">
                             {% for questionnaire in questionnaires %}
                                 {% if is_granted('ROLE_ADMIN') %}
                                     <li class="collection-item">
                                         <div>{{ questionnaire.nom }}
-                                            <a href="" class="secondary-content">
-                                                <i class="material-icons">delete</i>
+                                            <a href="" class="secondary-content tooltipped" data-position="right"
+                                               data-delay="50" data-tooltip="Supprimer">
+                                                <i class="material-icons red-text">delete</i>
                                             </a>
-                                            <a href="" class="secondary-content">
-                                                <i class="material-icons">mode_edit</i>
+                                            <a href="" class="secondary-content tooltipped" data-position="top"
+                                               data-delay="50" data-tooltip="Modifier">
+                                                <i class="material-icons light-blue-text">mode_edit</i>
                                             </a>
-                                            <a href="" class="secondary-content">
-                                                <i class="material-icons">visibility</i>
+                                            <a href="" class="secondary-content tooltipped" data-position="left"
+                                               data-delay="50" data-tooltip="Voir">
+                                                <i class="material-icons light-blue-text">visibility</i>
                                             </a>
                                         </div>
                                     </li>
@@ -28,14 +39,17 @@
                                     <li class="collection-item">
                                         <div>{{ questionnaire.nom }}
                                             {% if questionnaire.idAuteur == app.user.id %}
-                                                <a href="" class="secondary-content">
-                                                    <i class="material-icons">delete</i>
+                                                <a href="" class="secondary-content tooltipped" data-position="right"
+                                                   data-delay="50" data-tooltip="Supprimer">
+                                                    <i class="material-icons red-text">delete</i>
                                                 </a>
-                                                <a href="" class="secondary-content">
-                                                    <i class="material-icons">mode_edit</i>
+                                                <a href="" class="secondary-content tooltipped" data-position="top"
+                                                   data-delay="50" data-tooltip="Modifier">
+                                                    <i class="material-icons light-blue-text">mode_edit</i>
                                                 </a>
-                                                <a href="" class="secondary-content">
-                                                    <i class="material-icons">visibility</i>
+                                                <a href="" class="secondary-content tooltipped" data-position="left"
+                                                   data-delay="50" data-tooltip="Voir">
+                                                    <i class="material-icons light-blue-text">visibility</i>
                                                 </a>
                                             {% endif %}
                                         </div>
@@ -43,8 +57,9 @@
                                 {% elseif is_granted('ROLE_ELEVE') %}
                                     <li class="collection-item">
                                         <div>{{ questionnaire.nom }}
-                                            <a href="" class="secondary-content">
-                                                <i class="material-icons">visibility</i>
+                                            <a href="" class="secondary-content tooltipped" data-position="right"
+                                               data-delay="50" data-tooltip="Voir">
+                                                <i class="material-icons light-blue-text">visibility</i>
                                             </a>
                                         </div>
                                     </li>
@@ -64,14 +79,7 @@
     </div>
 
 
-    {% if is_granted("ROLE_ADMIN") or  is_granted("ROLE_PROF") %}
-        <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-            <a class="btn-floating btn-large light-blue tooltipped" data-position="left" data-delay="50"
-               data-tooltip="Créer QCM" href="/add">
-                <i class="large material-icons">add</i>
-            </a>
-        </div>
-    {% endif %}
+
 
 {% endblock body %}
 
