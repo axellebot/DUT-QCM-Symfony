@@ -119,7 +119,7 @@ class User implements UserInterface, \Serializable
                 return array('ROLE_ADMIN');
             case 'P':
             case 'p':
-                return array('ROLE_ADMIN');
+                return array('ROLE_PROF');
         }
 
         return array('ROLE_ELEVE'); #Par défaut
