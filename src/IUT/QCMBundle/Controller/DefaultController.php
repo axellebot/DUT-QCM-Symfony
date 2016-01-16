@@ -13,15 +13,10 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-
-        $canDeleteQuestionnaire = true;
-        $canAddQuestionnaire = true;
-        $canModifyQuestionnaire = true;
-
         $questionnaires = $this->getDoctrine()
             ->getRepository('IUTQCMBundle:Questionnaire')
             ->findAll();
 
-        return $this->render('IUTQCMBundle:Default:index.html.twig', array('questionnaires' => $questionnaires, 'canAddQuestionnaire' => $canAddQuestionnaire, 'canModifyQuestionnaire' => $canModifyQuestionnaire, 'canDeleteQuestionnaire' => $canDeleteQuestionnaire));
+        return $this->render('IUTQCMBundle:Default:index.html.twig', array('questionnaires' => $questionnaires));
     }
 }
