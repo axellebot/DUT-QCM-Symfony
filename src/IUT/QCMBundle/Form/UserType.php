@@ -34,12 +34,7 @@ class UserType extends AbstractType
                 'first_options' => array('label' => 'Mot de passe'),
                 'second_options' => array('label' => 'Repéter le mot de passe'),
                 'attr' => array('class' => 'validate')
-            ))
-            ->add('plainOldPassword', PasswordType::class, array(
-                    'label' => 'Mot de passe actuel',
-                    'attr' => array('class' => 'validate')
-                )
-            );
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
