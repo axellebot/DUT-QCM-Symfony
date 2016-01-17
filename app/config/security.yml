@@ -30,6 +30,7 @@ security:
             logout:
                 path:   /logout
                 target: /
+    access_control:
 
     encoders:
         IUT\QCMBundle\Entity\User:
