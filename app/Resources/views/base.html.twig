@@ -16,17 +16,21 @@
 <body>
 <header>
     <nav>
-        <div class="nav-wrapper blue-grey">
+        <div class="nav-wrapper blue-grey" style="padding-left: 0px !important;">
             <a href="/" class="brand-logo center">QCM</a>
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul class="left hide-on-med-and-down">
+                <li><a href="/"><i class="material-icons">home</i></a></li>
+                <li><a href="javascript:window.location.href=window.location.href"><i
+                                class="material-icons">refresh</i></a></li>
+            </ul>
             <ul class="right hide-on-med-and-down">
                 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
                     <li class="red"><a href="#"><i class="material-icons">supervisor_account</i></a></li>
                 {% endif %}
-                <li><a href="/"><i class="material-icons">home</i></a></li>
-                <li><a href="javascript:window.location.href=window.location.href"><i
-                                class="material-icons">refresh</i></a></li>
+
                 {% if app.user %}
+                    <li><a href="/profile"><i class="material-icons">account_circle</i></a></li>
                     <li><a href="/logout"><i class="material-icons">exit_to_app</i></a></li>
                 {% else %}
                     <li><a href="/login"><i class="material-icons">vpn_key</i></a></li>
@@ -39,6 +43,7 @@
                 <li><a href="/">Accueil</a></li>
                 <li><a href="javascript:window.location.href=window.location.href">Rafraichir</a></li>
                 {% if app.user %}
+                    <li><a href="/profile">Profile</a></li>
                     <li><a href="/logout">Se déconnecter</a></li>
                 {% else %}
                     <li><a href="/login">Se connecter</a></li>
