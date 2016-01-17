@@ -36,12 +36,6 @@ class User implements UserInterface, \Serializable
      * @Assert\NotBlank()
      * @Assert\Length(max = 4096)
      */
-    private $plainOldPassword;
-
-    /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max = 4096)
-     */
     private $plainPassword;
 
     /**
@@ -215,16 +209,6 @@ class User implements UserInterface, \Serializable
         $this->isActive = $isActive;
 
         return $this;
-    }
-
-    public function getPlainOldPassword()
-    {
-        return $this->plainOldPassword;
-    }
-
-    public function setPlainOldPassword($password)
-    {
-        $this->plainOldPassword = $password;
     }
 
     public function getPlainPassword()
