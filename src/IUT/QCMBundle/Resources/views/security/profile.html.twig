@@ -1,0 +1,50 @@
+{# app/Resources/views/security.profile.html.twig #}
+{# ... you will probably extends your base template, like base.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+    <div class="row" id="profile" class="">
+        <div class="col s12 m6 offset-m3 l6 offset-l3">
+            <form action="{{ path('user_profile') }}" class="" method="post">
+                <div class="card hoverable">
+                    <div class="card-content">
+                        <span class="card-title">Profil</span>
+                        <div class="input-field">
+                            <input class="validate" type="text" id="username" value={{ username }} name="_username"
+                                   required/>
+                            <label for="username">Nom d'utilisateur</label>
+                        </div>
+                        <div class="input-field">
+                            <input class="validate" type="email" id="email" value={{ email }} name="_email" required/>
+                            <label for="password">E-mail</label>
+                        </div>
+                        <div class="input-field">
+                            <input class="validate" type="password" id="password" name="_password" required/>
+                            <label for="password">Mot de passe actuel</label>
+                        </div>
+                        <div class="input-field">
+                            <input class="validate" type="password" id="newPasswordFirst" name="_newPasswordFirst"/>
+                            <label for="password">Nouveau mot de passe</label>
+                        </div>
+                        <div class="input-field">
+                            <input class="validate" type="password" id="newPasswordSecond" name="_newPasswordSecond"/>
+                            <label for="password">Retaper votre nouveau mot de passe</label>
+                        </div>
+                        {% if message %}
+                            <p class="center">{{ message }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="card-action center">
+                        <button class="btn waves-effect white  blue-grey-text" type="submit" name="action">
+                            Modifier<i class="material-icons right">send</i>
+                        </button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock body %}
