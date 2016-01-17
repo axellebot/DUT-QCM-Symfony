@@ -28,7 +28,8 @@ class QuestionController extends Controller
     public function addAction(Request $request, $id)
     {
         $question = new Question();
-        //$question->addReponse(new Reponse());
+        $question->addReponse(new Reponse());
+        $question->addReponse(new Reponse());
         $form = $this->createForm(QuestionType::class, $question);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -39,7 +40,10 @@ class QuestionController extends Controller
             $em->persist($question);
             $em->flush();
 
-            //return $this->redirect('/');
+           /* return $this->redirect($this->generateUrl('add_reponse', array(
+                'id_questionnaire' => $id,
+                'id_question' => $question->getId()
+            )));*/
         }
         return $this->render(
             '@IUTQCM/Default/question_add.html.twig',

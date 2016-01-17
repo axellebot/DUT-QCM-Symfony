@@ -36,15 +36,9 @@ class QuestionType extends AbstractType
                     )
             ))
             ->add('reponses', CollectionType::class, array(
-                'entry_type'   => TextType::class,
+                'entry_type' => ReponseType::class,
                 'allow_add' => true,
-                'entry_options'  => array(
-                    'required'  => true,
-                    'attr'      => array(
-                        'class' => 'validate',
-                        'placeholder' => 'Réponse'
-                    )
-                ),
+                'by_reference' => false,
             ));
     }
 

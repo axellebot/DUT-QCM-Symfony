@@ -4,15 +4,18 @@
 
 {% block stylesheets %}
     <style>
-        [type="checkbox"]:checked+label:before, [type="checkbox"]+label:before{
+        /*[type="checkbox"]:checked+label:before, [type="checkbox"]+label:before{
             margin-top: 35px;
-        }
+        }*/
         .reponse {
             display: flex;
             flex-direction: row;
         }
         .reponse i {
             margin-top: 15px;
+        }
+        .intitule-reponse {
+            flex-grow: 2;
         }
     </style>
 {% endblock stylesheets %}
@@ -33,43 +36,39 @@
                         {{ form_widget(form.bareme) }}
                     </p>
                 </div>
-                <div class="card-content" id="reponses" data-prototype="{{ form_widget(form.reponses.vars.prototype)|e }}">
-                    <h6 class="card-title">Réponses possibles</h6>
-                    <div class="input-field col s12 reponse">
-                        <input type="checkbox" id="check[0]" checked="checked" />
-                        <label for="check[0]" >
-                        </label>
-                        <input id="reponse[]" type="text" class="validate" placeholder="Réponse" required="required">
-                        <a class="delete">
-                            <i class="material-icons red-text">delete</i>
-                        </a>
-
-                    </div>
-                    <div class="input-field col s12 reponse">
-                        <input type="checkbox" id="check[1]"/>
-                        <label for="check[1]" >
-                        </label>
-                        <input id="reponse[]" type="text" class="validate" placeholder="Réponse" required="required">
-                        <a class="delete">
-                            <i class="material-icons red-text">delete</i>
-                        </a>
-                    </div>
-                    {% for reponseField in form.reponses %}
-                        <div class="input-field col s12 reponse">
-                            {{ form_row(reponseField) }}
+            </div>
+            <div class="card hoverable">
+                <div class="card-content reponses" data-prototype="
+                    <div class='reponse'>
+                        <div class='input-field'>
+                        {{ form_widget(form.reponses.vars.prototype.correcte)|e }}
+                        {{ form_label(form.reponses.vars.prototype.correcte)|e }}
                         </div>
+                        <div class='input-field  intitule-reponse'>
+                        {{ form_widget(form.reponses.vars.prototype.intitule)|e }}
+                        </div>
+                        <a class='input-field'>
+                            <i class='material-icons red-text'>delete</i>
+                        </a>
+                    </div>">
+
+                    <span class="card-title">Ajout de réponses</span>
+                    {% for reponse in form.reponses %}
+                    <div class='reponse'>
+                        <div class="input-field">
+                            {{  form_widget(reponse.correcte) }}
+                            {{  form_label(reponse.correcte) }}
+                        </div>
+                        <div class="input-field intitule-reponse">
+                            {{  form_widget(reponse.intitule) }}
+                        </div>
+                        <a class="input-field">
+                            <i class="material-icons red-text">delete</i>
+                        </a>
+                    </div>
                     {% endfor %}
                 </div>
-                <div class="right-align" style="margin-right: 25px; margin-bottom: 25px">
-                    <a class="btn-floating blue-light" id="add_reponse">
-                        <i class="large material-icons">add</i>
-                    </a>
-                </div>
-
                 <div class="card-action center">
-                    <button class="btn waves-effect white  blue-grey-text" type="submit" name="add">
-                        <i class="material-icons">add</i>
-                    </button>
                     <button class="btn waves-effect white  blue-grey-text" type="submit" name="end">
                         <i class="material-icons red-text">check</i>
                     </button>
@@ -84,40 +83,66 @@
 
 {% block javascripts %}
     <script type="text/javascript">
-        document.getElementById("add_reponse").onclick = function(){
-            var clone = $('.reponse:last').clone();
-            clone.children('input[type=checkbox]').attr('id', function(){
-                return 'check[' + $('.reponse').length + ']';
-            });
-            clone.children('input[type=checkbox]').removeAttr('checked');
-            clone.children('label').attr('for', function(){
-                return 'check[' + $('.reponse').length + ']';
-            });
-            $('#reponses').append(clone);
-        };
-        $('body').on("click", 'a.delete', function(){
-            if($('.reponse').length > 2) {
-                $(event.target).parent().parent().remove();
-            }
-        });
+        var $collectionHolder;
 
-
-        var reponseCount = '{{ form.reponses|length }}';
+        // setup an "add a tag" link
+        var addLink = $('<button class="right aligned btn-floating waves-effect btn tooltipped red add_reponse_link"><i class="material-icons">add</i></button>');
 
         jQuery(document).ready(function() {
-            jQuery('#add_reponse').click(function(e) {
+            // Get the ul that holds the collection of tags
+            $collectionHolder = $('div.reponses');
+
+            // add the "add a tag" anchor and li to the tags ul
+            $collectionHolder.append(addLink);
+
+
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $collectionHolder.data('index', $collectionHolder.find('div.reponse').length);
+
+            addLink.on('click', function(e) {
+                // prevent the link from creating a "#" on the URL
                 e.preventDefault();
 
-                var reponseList = jQuery('#reponses');
-
-
-                var newWidget = reponseList.attr('data-prototype');
-                newWidget = newWidget.replace(/__name__/g, reponseCount);
-                reponseCount++;
-
-                var newLi = jQuery('<div class="input-field col s12 reponse"></div>').html(newWidget);
-                newLi.appendTo(reponseList);
+                // add a new tag form (see next code block)
+                addReponseForm($collectionHolder, addLink);
             });
-        })
+
+            $collectionHolder.find('div.reponse').each(function() {
+                deleteReponse($(this));
+            });
+        });
+
+        function addReponseForm($collectionHolder, addLink) {
+            // Get the data-prototype explained earlier
+            var prototype = $collectionHolder.data('prototype');
+
+            // get the new index
+            var index = $collectionHolder.data('index');
+
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            var newForm = prototype.replace(/__name__/g, index);
+
+            // increase the index with one for the next item
+            $collectionHolder.data('index', index + 1);
+            addLink.before(newForm);
+            $collectionHolder.find('div.reponse').each(function() {
+                deleteReponse($(this));
+            });
+        }
+
+        function deleteReponse(reponseForm) {
+            var deleteLink = reponseForm.find('a');
+
+            deleteLink.on('click', function(e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+                if($collectionHolder.data('index') > 2){
+                    // remove the li for the tag form
+                    reponseForm.remove();
+                }
+            });
+        }
     </script>
-{% endblock javascripts %}
+{% endblock %}

@@ -48,7 +48,8 @@ class Question
      *
      * @ORM\OneToMany(
      *     targetEntity="Reponse",
-     *     mappedBy="Question"
+     *     mappedBy="Question",
+     *     cascade={"persist"}
      * )
      */
     private $reponses;
@@ -152,6 +153,8 @@ class Question
      */
     public function addReponse(\IUT\QCMBundle\Entity\Reponse $reponse)
     {
+        $reponse->setQuestion($this);
+
         $this->reponses[] = $reponse;
 
         return $this;
