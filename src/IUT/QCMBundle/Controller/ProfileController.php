@@ -36,12 +36,10 @@ class ProfileController extends Controller
             $encoder = $encoder_service->getEncoder($user);
             if ($encoder->isPasswordValid($password, $postPassword, $user->getSalt())) {
                 //autoriser les modification
-                if ($postNewPasswordFirst != null && $postNewPasswordSecond != null) {
-                    //souhaite modifier son mdp
-                    if ($postNewPasswordFirst == $postNewPasswordSecond) {
 
-                    } else {
-                        $message = "Les mots de passe ne correspondent pas !";
+                if($postNewPasswordFirst!="" || $postNewPasswordSecond!="" || $postUsername!=$username || $postEmail!=$email) {
+                    if ($postPassword == $postNewPasswordFirst) {
+                        $message = "Le mot de passe doit être différent !";
                         return $this->render(
                             'IUTQCMBundle:security:profile.html.twig',
                             array(
@@ -52,12 +50,42 @@ class ProfileController extends Controller
                             )
                         );
                     }
-                }
-                if ($postEmail != $email) {
-                    //souhaite changer son mdp
-                }
-                if ($postUsername != $username) {
-                    //souhaite changer son username
+                    if ($postNewPasswordFirst != null && $postNewPasswordSecond != null) {
+                        //souhaite modifier son mdp
+                        if ($postNewPasswordFirst == $postNewPasswordSecond) {
+                            $user->setPassword($encoder->encodePassword($user, $postNewPasswordFirst));
+                        } else {
+                            $message = "Les mots de passe ne correspondent pas !";
+                            return $this->render(
+                                'IUTQCMBundle:security:profile.html.twig',
+                                array(
+                                    // last username entered by the user
+                                    'username' => $username,
+                                    'email' => $email,
+                                    'message' => $message,
+                                )
+                            );
+                        }
+                    }
+                    if ($postEmail != $email) {
+                        //souhaite changer son mdp
+                        $user->setEmail($postEmail);
+                    }
+                    if ($postUsername != $username) {
+                        //souhaite changer son username
+                        $user->setUsername($postUsername);
+                    }
+                    $manager = $this->getDoctrine()->getManager();
+                    $manager->persist($user);
+
+                    $manager->flush();
+
+                    $username = $user->getUsername();
+                    $email = $user->getEmail();
+
+                    $message = "Changé !";
+                }else{
+                    $message = "Auncun changement";
                 }
             } else {
                 $message = "Mauvais mot de passe";
