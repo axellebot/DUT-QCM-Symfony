@@ -78,7 +78,23 @@ class ProfileController extends Controller
                     $manager = $this->getDoctrine()->getManager();
                     $manager->persist($user);
 
-                    $manager->flush();
+                    try {
+                        $manager->flush();
+                    } catch (\Exception $e) {
+                        $msg = '### Message ### \n' . $e->getMessage() . '\n### Trace ### \n' . $e->getTraceAsString();
+                        $this->container->get('logger')->critical($msg);
+                        // Here put you logic now you now that the flush has failed and all subsequent flush will fail as well
+                        $message="Pseudo ou E-mail déjà utilisé";
+                        return $this->render(
+                            'IUTQCMBundle:security:profile.html.twig',
+                            array(
+                                // last username entered by the user
+                                'username' => $username,
+                                'email' => $email,
+                                'message' => $message,
+                            )
+                        );
+                    }
 
                     $username = $user->getUsername();
                     $email = $user->getEmail();
