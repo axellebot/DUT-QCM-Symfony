@@ -17,12 +17,6 @@ class ProfileController extends Controller
      */
     public function profileAction(Request $request)
     {
-        $securityContext = $this->container->get('security.authorization_checker');
-        if (!$securityContext->isGranted('IS_AUTHENTICATED_FULLY') || !$securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            return $this->redirect("/login");
-        }
-
-
         $user = $this->getUser();
         $username = $user->getUsername();
         $password = $user->getPassword();
