@@ -40,7 +40,7 @@ class Reponse
      *
      * @ORM\ManyToOne(
      *     targetEntity="Question",
-     *     inversedBy="Reponse"
+     *     inversedBy="reponses"
      * )
      * @ORM\JoinColumn(
      *     name="questionId",

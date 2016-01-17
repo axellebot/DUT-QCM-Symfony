@@ -48,7 +48,7 @@ class Question
      *
      * @ORM\OneToMany(
      *     targetEntity="Reponse",
-     *     mappedBy="Question",
+     *     mappedBy="question",
      *     cascade={"persist"}
      * )
      */
