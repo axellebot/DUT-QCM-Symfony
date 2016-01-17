@@ -10,7 +10,8 @@ namespace IUT\QCMBundle\Form;
 
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -33,6 +34,17 @@ class QuestionType extends AbstractType
                     'max' => 20,
                     'step' => 0.5
                     )
+            ))
+            ->add('reponses', CollectionType::class, array(
+                'entry_type'   => TextType::class,
+                'allow_add' => true,
+                'entry_options'  => array(
+                    'required'  => true,
+                    'attr'      => array(
+                        'class' => 'validate',
+                        'placeholder' => 'Réponse'
+                    )
+                ),
             ));
     }
 

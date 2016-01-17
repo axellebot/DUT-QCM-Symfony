@@ -25,6 +25,9 @@ class QuestionnaireController extends Controller
             if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
                 throw $this->createAccessDeniedException();
             }
+            if(!$this->get('security.authorization_checker')->isGranted('ROLE_PROF')){
+
+            }
             $user = $this->getUser();
             $questionnaire->setIdAuteur($user->getId());
             $questionnaire->setQuestions('test');

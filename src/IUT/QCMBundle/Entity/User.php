@@ -55,7 +55,7 @@ class User implements UserInterface, \Serializable
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=1, unique=false,nullable=false)
+     * @ORM\Column(type="string", length=1, unique=false, nullable=false, columnDefinition="ENUM('S', 'A', 'P', 'E')")
      */
     private $role;
 

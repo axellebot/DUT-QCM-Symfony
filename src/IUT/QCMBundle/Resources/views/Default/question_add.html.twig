@@ -2,6 +2,21 @@
 {# ... you will probably extends your base template, like base.html.twig #}
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <style>
+        [type="checkbox"]:checked+label:before, [type="checkbox"]+label:before{
+            margin-top: 35px;
+        }
+        .reponse {
+            display: flex;
+            flex-direction: row;
+        }
+        .reponse i {
+            margin-top: 15px;
+        }
+    </style>
+{% endblock stylesheets %}
+
 {% block body %} {# modèle body <body>#}
 
     <div class="row" id="questionnaire-add">
@@ -18,10 +33,45 @@
                         {{ form_widget(form.bareme) }}
                     </p>
                 </div>
+                <div class="card-content" id="reponses" data-prototype="{{ form_widget(form.reponses.vars.prototype)|e }}">
+                    <h6 class="card-title">Réponses possibles</h6>
+                    <div class="input-field col s12 reponse">
+                        <input type="checkbox" id="check[0]" checked="checked" />
+                        <label for="check[0]" >
+                        </label>
+                        <input id="reponse[]" type="text" class="validate" placeholder="Réponse" required="required">
+                        <a class="delete">
+                            <i class="material-icons red-text">delete</i>
+                        </a>
+
+                    </div>
+                    <div class="input-field col s12 reponse">
+                        <input type="checkbox" id="check[1]"/>
+                        <label for="check[1]" >
+                        </label>
+                        <input id="reponse[]" type="text" class="validate" placeholder="Réponse" required="required">
+                        <a class="delete">
+                            <i class="material-icons red-text">delete</i>
+                        </a>
+                    </div>
+                    {% for reponseField in form.reponses %}
+                        <div class="input-field col s12 reponse">
+                            {{ form_row(reponseField) }}
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="right-align" style="margin-right: 25px; margin-bottom: 25px">
+                    <a class="btn-floating blue-light" id="add_reponse">
+                        <i class="large material-icons">add</i>
+                    </a>
+                </div>
+
                 <div class="card-action center">
-                    <button class="btn waves-effect white  blue-grey-text" type="submit" name="action">
-                        <i class="material-icons left">add</i>
-                        <i class="material-icons right red-text">check</i>
+                    <button class="btn waves-effect white  blue-grey-text" type="submit" name="add">
+                        <i class="material-icons">add</i>
+                    </button>
+                    <button class="btn waves-effect white  blue-grey-text" type="submit" name="end">
+                        <i class="material-icons red-text">check</i>
                     </button>
                 </div>
             </div>
@@ -32,3 +82,42 @@
 
 {% endblock body %} {# modèle body </body>#}
 
+{% block javascripts %}
+    <script type="text/javascript">
+        document.getElementById("add_reponse").onclick = function(){
+            var clone = $('.reponse:last').clone();
+            clone.children('input[type=checkbox]').attr('id', function(){
+                return 'check[' + $('.reponse').length + ']';
+            });
+            clone.children('input[type=checkbox]').removeAttr('checked');
+            clone.children('label').attr('for', function(){
+                return 'check[' + $('.reponse').length + ']';
+            });
+            $('#reponses').append(clone);
+        };
+        $('body').on("click", 'a.delete', function(){
+            if($('.reponse').length > 2) {
+                $(event.target).parent().parent().remove();
+            }
+        });
+
+
+        var reponseCount = '{{ form.reponses|length }}';
+
+        jQuery(document).ready(function() {
+            jQuery('#add_reponse').click(function(e) {
+                e.preventDefault();
+
+                var reponseList = jQuery('#reponses');
+
+
+                var newWidget = reponseList.attr('data-prototype');
+                newWidget = newWidget.replace(/__name__/g, reponseCount);
+                reponseCount++;
+
+                var newLi = jQuery('<div class="input-field col s12 reponse"></div>').html(newWidget);
+                newLi.appendTo(reponseList);
+            });
+        })
+    </script>
+{% endblock javascripts %}

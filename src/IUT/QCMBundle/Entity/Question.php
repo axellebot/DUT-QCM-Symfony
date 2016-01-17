@@ -43,6 +43,16 @@ class Question
      */
     private $intitule;
 
+    /**
+     * @var array
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="Reponse",
+     *     mappedBy="Question"
+     * )
+     */
+    private $reponses;
+
 
     /**
      * Get id
@@ -124,5 +134,46 @@ class Question
         $this->intitule = $intitule;
 
         return $this;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->reponses = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add reponse
+     *
+     * @param \IUT\QCMBundle\Entity\Reponse $reponse
+     *
+     * @return Question
+     */
+    public function addReponse(\IUT\QCMBundle\Entity\Reponse $reponse)
+    {
+        $this->reponses[] = $reponse;
+
+        return $this;
+    }
+
+    /**
+     * Remove reponse
+     *
+     * @param \IUT\QCMBundle\Entity\Reponse $reponse
+     */
+    public function removeReponse(\IUT\QCMBundle\Entity\Reponse $reponse)
+    {
+        $this->reponses->removeElement($reponse);
+    }
+
+    /**
+     * Get reponses
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReponses()
+    {
+        return $this->reponses;
     }
 }
