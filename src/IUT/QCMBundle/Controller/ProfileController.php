@@ -37,7 +37,7 @@ class ProfileController extends Controller
             if ($encoder->isPasswordValid($password, $postPassword, $user->getSalt())) {
                 //autoriser les modification
 
-                if($postNewPasswordFirst!="" || $postNewPasswordSecond!="" || $postUsername!=$username || $postEmail!=$email) {
+                if ($postNewPasswordFirst != "" || $postNewPasswordSecond != "" || $postUsername != $username || $postEmail != $email) {
                     if ($postPassword == $postNewPasswordFirst) {
                         $message = "Le mot de passe doit être différent !";
                         return $this->render(
@@ -84,13 +84,12 @@ class ProfileController extends Controller
                     $email = $user->getEmail();
 
                     $message = "Changé !";
-                }else{
+                } else {
                     $message = "Auncun changement";
                 }
             } else {
                 $message = "Mauvais mot de passe";
             }
-
         }
 
         return $this->render(
