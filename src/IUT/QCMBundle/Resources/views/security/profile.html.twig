@@ -12,28 +12,60 @@
                     <div class="card-content">
                         <span class="card-title">Profil</span>
                         <div class="input-field">
-                            <input class="validate" type="text" id="username" value={{ username }} name="_username"
+                            <input class="validate" type="text" id="firstname" value="{{ app.user.firstname }}"
+                                   name="_firstname"
                                    required/>
-                            <label for="username">Nom d'utilisateur</label>
+                            <label for="firstname">Prénom</label>
                         </div>
+                        {% if messageFirstname %}
+                            <p class="center">{{ messageFirstname }}</p>
+                        {% endif %}
                         <div class="input-field">
-                            <input class="validate" type="email" id="email" value={{ email }} name="_email" required/>
+                            <input class="validate" type="text" id="lastname" value="{{ app.user.lastname }}"
+                                   name="_lastname"
+                                   required/>
+                            <label for="lastname">Nom</label>
+                        </div>
+                        {% if messageLastname %}
+                            <p class="center">{{ messageLastname }}</p>
+                        {% endif %}
+                        <div class="input-field">
+                            <input class="validate" type="text" id="username"
+                                   value={{ app.user.username }} name="_username"
+                                   required/>
+                            <label for="username">Pseudo</label>
+                        </div>
+                        {% if messageUsername %}
+                            <p class="center">{{ messageUsername }}</p>
+                        {% endif %}
+                        <div class="input-field">
+                            <input class="validate" type="email" id="email" value={{ app.user.email }} name="_email"
+                                   required/>
                             <label for="email">E-mail</label>
                         </div>
+                        {% if messageEmail %}
+                            <p class="center">{{ messageEmail }}</p>
+                        {% endif %}
                         <div class="input-field">
                             <input class="validate" type="password" id="password" name="_password" required/>
                             <label for="password">Mot de passe actuel</label>
                         </div>
+                        {% if messagePassword %}
+                            <p class="center">{{ messagePassword }}</p>
+                        {% endif %}
                         <div class="input-field">
                             <input class="validate" type="password" id="newPasswordFirst" name="_newPasswordFirst"/>
                             <label for="newPasswordFirst">Nouveau mot de passe</label>
                         </div>
+                        {% if messageNewPassword %}
+                            <p class="center">{{ messageNewPassword }}</p>
+                        {% endif %}
                         <div class="input-field">
                             <input class="validate" type="password" id="newPasswordSecond" name="_newPasswordSecond"/>
                             <label for="newPasswordSecond">Retaper votre nouveau mot de passe</label>
                         </div>
-                        {% if message %}
-                            <p class="center">{{ message }}</p>
+                        {% if messageGlobal %}
+                            <p class="center">{{ messageGlobal }}</p>
                         {% endif %}
                     </div>
                     <div class="card-action center">
