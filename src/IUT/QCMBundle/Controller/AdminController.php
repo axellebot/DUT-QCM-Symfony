@@ -64,8 +64,8 @@ class AdminController extends Controller
 
 
         if ($request->getMethod() == 'POST') {
-            $em->remove($user);
-            $em->flush();
+            //$em->remove($user);
+            //$em->flush();
         }
 
 
