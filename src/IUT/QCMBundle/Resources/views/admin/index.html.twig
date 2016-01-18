@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col s12 m6 offset-m3 l6 offset-l3">
+            <div class="card hoverable">
+                <div class="card-content">
+                    <span class="card-title">Liste des Utilisateurs</span>
+                    <ul class="collection ">
+                        {% for user in users %}
+                            <li class="collection-item">
+                                <div>{{ user.username }}
+                                    <a href="" class="secondary-content tooltipped" data-position="right"
+                                       data-delay="50" data-tooltip="Supprimer">
+                                        <i class="material-icons red-text">delete</i>
+                                    </a>
+                                    <a href="" class="secondary-content tooltipped" data-position="top"
+                                       data-delay="50" data-tooltip="Modifier">
+                                        <i class="material-icons light-blue-text">mode_edit</i>
+                                    </a>
+                                    <a href="" class="secondary-content tooltipped" data-position="left"
+                                       data-delay="50" data-tooltip="Voir">
+                                        <i class="material-icons light-blue-text">visibility</i>
+                                    </a>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock body %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.tooltipped').tooltip({delay: 50});
+        })
+    </script>
+{% endblock javascripts %}
+
