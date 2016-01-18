@@ -18,13 +18,23 @@ class ProfileController extends Controller
     public function profileAction(Request $request)
     {
         $user = $this->getUser();
+        $firstname = $user->getFirstname();
+        $lastname = $user->getLastname();
         $username = $user->getUsername();
         $password = $user->getPassword();
         $email = $user->getEmail();
-        $message = null;
+        $messageFirstname = null;
+        $messageLastname = null;
+        $messageUsername = null;
+        $messageEmail = null;
+        $messagePassword = null;
+        $messageNewPassword = null;
+        $messageGlobal = null;
 
 
         if ($request->getMethod() == 'POST') {
+            $postFirstname = $request->request->get('_firstname');
+            $postLastname = $request->request->get('_lastname');
             $postUsername = $request->request->get('_username');
             $postEmail = $request->request->get('_email');
             $postPassword = $request->request->get('_password');
@@ -36,45 +46,34 @@ class ProfileController extends Controller
             $encoder = $encoder_service->getEncoder($user);
             if ($encoder->isPasswordValid($password, $postPassword, $user->getSalt())) {
                 //autoriser les modification
-
-                if ($postNewPasswordFirst != "" || $postNewPasswordSecond != "" || $postUsername != $username || $postEmail != $email) {
-                    if ($postPassword == $postNewPasswordFirst) {
-                        $message = "Le mot de passe doit être différent !";
-                        return $this->render(
-                            'IUTQCMBundle:security:profile.html.twig',
-                            array(
-                                // last username entered by the user
-                                'username' => $username,
-                                'email' => $email,
-                                'message' => $message,
-                            )
-                        );
+                if ($postFirstname != $firstname || $postLastname != $lastname || $postNewPasswordFirst != "" || $postNewPasswordSecond != "" || $postUsername != $username || $postEmail != $email) {
+                     if ($postFirstname != $firstname) {
+                        $user->setFirstname($postFirstname);
+                        $messageFirstname = "Prénom modifié";
+                    }
+                    if ($postUsername != $username) {
+                        $user->setLastname($postLastname);
+                        $messageLastname = "Nom modifité";
+                    }
+                    if ($postUsername != $username) {
+                        //souhaite changer son username
+                        $user->setUsername($postUsername);
+                        $messageUsername = "Pseudo modifité";
+                    }
+                    if ($postEmail != $email) {
+                        //souhaite changer son mail
+                        $user->setEmail($postEmail);
+                        $messageEmail = "Mail modifié";
                     }
                     if ($postNewPasswordFirst != null && $postNewPasswordSecond != null) {
                         //souhaite modifier son mdp
                         if ($postNewPasswordFirst == $postNewPasswordSecond) {
                             $user->setPassword($encoder->encodePassword($user, $postNewPasswordFirst));
                         } else {
-                            $message = "Les mots de passe ne correspondent pas !";
-                            return $this->render(
-                                'IUTQCMBundle:security:profile.html.twig',
-                                array(
-                                    // last username entered by the user
-                                    'username' => $username,
-                                    'email' => $email,
-                                    'message' => $message,
-                                )
-                            );
+                            $messageNewPassword = "Les mots de passe ne correspondent pas !";
                         }
                     }
-                    if ($postEmail != $email) {
-                        //souhaite changer son mdp
-                        $user->setEmail($postEmail);
-                    }
-                    if ($postUsername != $username) {
-                        //souhaite changer son username
-                        $user->setUsername($postUsername);
-                    }
+
                     $manager = $this->getDoctrine()->getManager();
                     $manager->persist($user);
 
@@ -84,37 +83,38 @@ class ProfileController extends Controller
                         $msg = '### Message ### \n' . $e->getMessage() . '\n### Trace ### \n' . $e->getTraceAsString();
                         $this->container->get('logger')->critical($msg);
                         // Here put you logic now you now that the flush has failed and all subsequent flush will fail as well
-                        $message="Pseudo ou E-mail déjà utilisé";
+                        $messageGlobal = "Pseudo ou E-mail déjà utilisé";
                         return $this->render(
                             'IUTQCMBundle:security:profile.html.twig',
                             array(
-                                // last username entered by the user
-                                'username' => $username,
-                                'email' => $email,
-                                'message' => $message,
+                                'messageFirstname' => null,
+                                'messageLastname' => null,
+                                'messageUsername' => null,
+                                'messageEmail' => null,
+                                'messagePassword' => null,
+                                'messagePassword' => null,
+                                'messageGlobal' => $messageGlobal,
                             )
                         );
                     }
-
-                    $username = $user->getUsername();
-                    $email = $user->getEmail();
-
-                    $message = "Changé !";
                 } else {
-                    $message = "Auncun changement";
+                    $messageGlobal = "Aucun changement à appliquer changement";
                 }
             } else {
-                $message = "Mauvais mot de passe";
+                $messagePassword = "Mauvais mot de passe";
             }
         }
 
         return $this->render(
             'IUTQCMBundle:security:profile.html.twig',
             array(
-                // last username entered by the user
-                'username' => $username,
-                'email' => $email,
-                'message' => $message,
+                'messageFirstname' => $messageFirstname,
+                'messageLastname' => $messageLastname,
+                'messageUsername' => $messageUsername,
+                'messageEmail' => $messageEmail,
+                'messagePassword' => $messagePassword,
+                'messageNewPassword' => $messageNewPassword,
+                'messageGlobal' => $messageGlobal,
             )
         );
     }

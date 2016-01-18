@@ -13,23 +13,28 @@
                                 <div class="modal-content">
                                     <a href="#" class="btn-floating right modal-close waves-effect waves-light black"><i class="material-icons">close</i></a>
                                     <h4 class="center">{{ user.username }}</h4>
-                                    <p class="flow-text">Id : {{ user.id }} <br/>
-                                    Pseudo : {{ user.username }} <br/>
-                                    Email : {{ user.email }}</p>
+                                    <p class="flow-text">
+                                        <b>Id :</b> {{ user.id }}<br/>
+                                        <b>Prénom :</b> {{ user.firstname }}<br/>
+                                        <b>Nom :</b> {{ user.lastname }}<br/>
+                                        <b>Pseudo :</b> {{ user.username }}<br/>
+                                        <b>Email :</b> {{ user.email }}<br/>
+                                        <b>Role :</b> {{ user.role }}
+                                    </p>
                                 </div>
                                 <div class="modal-footer center">
-                                    <div class="right"><a href="/admin/user/delete/{{ user.id }}" class="btn waves-effect waves-light red"><i class="material-icons left">delete</i>Supprimer</a></div>
-                                    <div class="left"><a href="/admin/user/modify/{{ user.id }}" class="btn waves-effect waves-green blue-grey"><i class="material-icons right">edit</i>Modifier</a></div>
+                                    <div class="right"><a href="/admin/user/{{ user.id }}/delete" class="btn waves-effect waves-light red"><i class="material-icons left">delete</i>Supprimer</a></div>
+                                    <div class="left"><a href="/admin/user/{{ user.id }}/delete" class="btn waves-effect waves-green blue-grey"><i class="material-icons right">edit</i>Modifier</a></div>
                                 </div>
                             </div>
 
                             <li class="collection-item">
                                 <div>{{ user.username }}
-                                    <a href="/admin/user/delete/{{ user.id }}" class="secondary-content tooltipped" data-position="right"
+                                    <a href="/admin/user/{{ user.id }}/delete" class="secondary-content tooltipped" data-position="right"
                                        data-delay="50" data-tooltip="Supprimer">
                                         <i class="material-icons red-text">delete</i>
                                     </a>
-                                    <a href="/admin/user/modify/{{ user.id }}" class="secondary-content tooltipped" data-position="top"
+                                    <a href="/admin/user/{{ user.id }}/delete" class="secondary-content tooltipped" data-position="top"
                                        data-delay="50" data-tooltip="Modifier">
                                         <i class="material-icons light-blue-text">mode_edit</i>
                                     </a>
