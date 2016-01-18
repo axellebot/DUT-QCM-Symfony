@@ -3,26 +3,24 @@
 {% extends 'base.html.twig' %}
 
 {% block body %} {# modèle body <body>#}
-
     <div class="row" id="questionnaire-add">
         <div class="col s12 m6 offset-m3 l6 offset-l3">
-            <form action="." method="post">
+            <form action=""  method="post">
                 <div class="card-panel hoverable center-align"><h4>{{ questionnaire.nom }}</h4></div>
                 <div class="card hoverable">
                     <div class="card-content">
                         <span class="card-title">{{ question.intitule }}</span>
 
                         {%  for reponse in question.reponses %}
-                        <div class="input-field">
-                            <input type="checkbox" id="{{ reponse.id }}" />
-                            <label for="{{ reponse.id }}">{{ reponse.intitule }}</label>
-
-                        </div>
+                            <div class="input-field">
+                                <input type="checkbox" id="{{ reponse.id }}" name="{{ reponse.id }}" />
+                                <label for="{{ reponse.id }}">{{ reponse.intitule }}</label>
+                            </div>
                         {% endfor %}
                         </div>
 
                     <div class="card-action center">
-                        <button class="btn waves-effect white  blue-grey-text" type="submit" name="action">
+                        <button class="btn waves-effect white  blue-grey-text" type="submit" name="submit">
                             Suivant<i class="material-icons right">navigate_next</i>
                         </button>
                     </div>

@@ -60,7 +60,7 @@
                                     {% elseif is_granted('ROLE_ELEVE') %}
                                         <li class="collection-item">
                                             <div>{{ questionnaire.nom }}
-                                                <a href="" class="secondary-content tooltipped" data-position="right"
+                                                <a href="{{ path('answer_questionnaire', {'id': questionnaire.id}) }}" class="secondary-content tooltipped" data-position="right"
                                                    data-delay="50" data-tooltip="Voir">
                                                     <i class="material-icons light-blue-text">visibility</i>
                                                 </a>
