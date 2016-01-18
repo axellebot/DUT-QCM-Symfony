@@ -26,7 +26,7 @@
             </ul>
             <ul class="right hide-on-med-and-down">
                 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
-                    <li class="red"><a href="#"><i class="material-icons">supervisor_account</i></a></li>
+                    <li class="red"><a href="{{ path('admin_index') }}"><i class="material-icons">supervisor_account</i></a></li>
                 {% endif %}
 
                 {% if app.user %}
