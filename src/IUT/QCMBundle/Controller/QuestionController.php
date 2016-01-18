@@ -28,7 +28,7 @@ class QuestionController extends Controller
      */
     public function addAction(Request $request, $id)
     {
-        if(!$this->get('security.authorization_checker')->isGranted('ROLE_FROF')){
+        if(!$this->get('security.authorization_checker')->isGranted('ROLE_PROF')){
             return $this->redirect('/');
         }
         $question = new Question();

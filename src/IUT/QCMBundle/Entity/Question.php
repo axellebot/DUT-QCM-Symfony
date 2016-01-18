@@ -49,10 +49,24 @@ class Question
      * @ORM\OneToMany(
      *     targetEntity="Reponse",
      *     mappedBy="question",
-     *     cascade={"persist"}
+     *     cascade={"remove", "persist"},
+     *     fetch="EAGER"
      * )
      */
     private $reponses;
+
+
+    /**
+     * @var array
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="ReponseUser",
+     *     mappedBy="question",
+     *     cascade={"remove", "persist"},
+     *     fetch="EAGER"
+     * )
+     */
+    private $reponsesUser;
 
 
     /**

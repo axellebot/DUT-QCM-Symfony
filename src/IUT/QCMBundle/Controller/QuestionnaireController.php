@@ -18,6 +18,9 @@ class QuestionnaireController extends Controller
      */
     public function addAction(Request $request)
     {
+        if(!$this->get('security.authorization_checker')->isGranted('ROLE_PROF')){
+            return $this->redirect('/');
+        }
         $questionnaire = new Questionnaire();
         $form = $this->createForm(QuestionnaireType::class, $questionnaire);
         $form->handleRequest($request);
@@ -25,9 +28,7 @@ class QuestionnaireController extends Controller
             if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
                 throw $this->createAccessDeniedException();
             }
-            if(!$this->get('security.authorization_checker')->isGranted('ROLE_PROF')){
 
-            }
             $user = $this->getUser();
             $questionnaire->setIdAuteur($user->getId());
             $questionnaire->setQuestions('test');
@@ -44,5 +45,27 @@ class QuestionnaireController extends Controller
             '@IUTQCM/Default/questionnaire_add.html.twig',
             array('form' => $form->createView())
         );
+    }
+
+    /**
+     * @Route("/answer/{id}", name="answer_questionnaire", requirements={"id" = "\d+"})
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function answerAction($id){
+        $questionnaire = $this->getDoctrine()->getManager()->getRepository('IUTQCMBundle:Questionnaire')->find($id);
+        $question = $this->getDoctrine()
+            ->getRepository('IUTQCMBundle:Question')
+            ->createQueryBuilder('q')
+            ->where('q.idQuestionnaire = :id')
+            ->setParameter('id', $questionnaire->getId())
+            ->getQuery()
+            ->setMaxResults(1)
+            ->getOneOrNullResult();
+        return $this->render('@IUTQCM/Default/questionnaire_answer.html.twig', array(
+            'questionnaire' => $questionnaire,
+            'question' => $question,
+
+        ));
     }
 }
