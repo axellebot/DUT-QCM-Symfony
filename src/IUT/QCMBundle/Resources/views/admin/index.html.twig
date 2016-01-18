@@ -8,17 +8,32 @@
                     <span class="card-title">Liste des Utilisateurs</span>
                     <ul class="collection ">
                         {% for user in users %}
+                            <!-- Modal Structure -->
+                            <div id="modal_{{ user.id }}" class="modal">
+                                <div class="modal-content">
+                                    <a href="#" class="btn-floating right modal-close waves-effect waves-light black"><i class="material-icons">close</i></a>
+                                    <h4 class="center">{{ user.username }}</h4>
+                                    <p class="flow-text">Id : {{ user.id }} <br/>
+                                    Pseudo : {{ user.username }} <br/>
+                                    Email : {{ user.email }}</p>
+                                </div>
+                                <div class="modal-footer center">
+                                    <div class="right"><a href="/admin/user/delete/{{ user.id }}" class="btn waves-effect waves-light red"><i class="material-icons left">delete</i>Supprimer</a></div>
+                                    <div class="left"><a href="/admin/user/modify/{{ user.id }}" class="btn waves-effect waves-green blue-grey"><i class="material-icons right">edit</i>Modifier</a></div>
+                                </div>
+                            </div>
+
                             <li class="collection-item">
                                 <div>{{ user.username }}
-                                    <a href="" class="secondary-content tooltipped" data-position="right"
+                                    <a href="/admin/user/delete/{{ user.id }}" class="secondary-content tooltipped" data-position="right"
                                        data-delay="50" data-tooltip="Supprimer">
                                         <i class="material-icons red-text">delete</i>
                                     </a>
-                                    <a href="" class="secondary-content tooltipped" data-position="top"
+                                    <a href="/admin/user/modify/{{ user.id }}" class="secondary-content tooltipped" data-position="top"
                                        data-delay="50" data-tooltip="Modifier">
                                         <i class="material-icons light-blue-text">mode_edit</i>
                                     </a>
-                                    <a href="" class="secondary-content tooltipped" data-position="left"
+                                    <a href="#modal_{{ user.id }}" class="secondary-content tooltipped modal-trigger" data-position="left"
                                        data-delay="50" data-tooltip="Voir">
                                         <i class="material-icons light-blue-text">visibility</i>
                                     </a>
@@ -36,6 +51,8 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('.tooltipped').tooltip({delay: 50});
+            // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+            $('.modal-trigger').leanModal();
         })
     </script>
 {% endblock javascripts %}
