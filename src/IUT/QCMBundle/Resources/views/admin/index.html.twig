@@ -13,9 +13,14 @@
                                 <div class="modal-content">
                                     <a href="#" class="btn-floating right modal-close waves-effect waves-light black"><i class="material-icons">close</i></a>
                                     <h4 class="center">{{ user.username }}</h4>
-                                    <p class="flow-text">Id : {{ user.id }} <br/>
-                                    Pseudo : {{ user.username }} <br/>
-                                    Email : {{ user.email }}</p>
+                                    <p class="flow-text">
+                                        <b>Id :</b> {{ user.id }}<br/>
+                                        <b>Prénom :</b> {{ user.firstname }}<br/>
+                                        <b>Nom :</b> {{ user.lastname }}<br/>
+                                        <b>Pseudo :</b> {{ user.username }}<br/>
+                                        <b>Email :</b> {{ user.email }}<br/>
+                                        <b>Role :</b> {{ user.role }}
+                                    </p>
                                 </div>
                                 <div class="modal-footer center">
                                     <div class="right"><a href="/admin/user/{{ user.id }}/delete" class="btn waves-effect waves-light red"><i class="material-icons left">delete</i>Supprimer</a></div>
