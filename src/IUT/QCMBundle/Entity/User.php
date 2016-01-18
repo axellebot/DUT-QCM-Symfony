@@ -278,7 +278,6 @@ class User implements UserInterface, \Serializable
     public function setFirstname($firstname)
     {
         $this->firstname = $firstname;
-
         return $this;
     }
 
