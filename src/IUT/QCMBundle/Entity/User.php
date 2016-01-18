@@ -39,7 +39,7 @@ class User implements UserInterface, \Serializable
 
 
     /**
-     * @ORM\Column(type="string", length=25, unique=unique)
+     * @ORM\Column(type="string", length=25, unique=true)
      */
     private $username;
 
