@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Reponse
  *
- * @ORM\Table(name="reponse")
+ * @ORM\Table(name="reponseUser")
  * @ORM\Entity(repositoryClass="IUT\QCMBundle\Repository\ReponseRepository")
  */
 class ReponseUser
@@ -24,7 +24,7 @@ class ReponseUser
     /**
      * @var bool
      *
-     * @ORM\Column(name="choix", type="boolean")
+     * @ORM\Column(name="choix", type="integer")
      */
     private $choix;
 
@@ -44,4 +44,63 @@ class ReponseUser
     private $question;
 
 
+
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set choix
+     *
+     * @param integer $choix
+     *
+     * @return ReponseUser
+     */
+    public function setChoix($choix)
+    {
+        $this->choix = $choix;
+
+        return $this;
+    }
+
+    /**
+     * Get choix
+     *
+     * @return integer
+     */
+    public function getChoix()
+    {
+        return $this->choix;
+    }
+
+    /**
+     * Set question
+     *
+     * @param \IUT\QCMBundle\Entity\Question $question
+     *
+     * @return ReponseUser
+     */
+    public function setQuestion(\IUT\QCMBundle\Entity\Question $question)
+    {
+        $this->question = $question;
+
+        return $this;
+    }
+
+    /**
+     * Get question
+     *
+     * @return \IUT\QCMBundle\Entity\Question
+     */
+    public function getQuestion()
+    {
+        return $this->question;
+    }
 }
