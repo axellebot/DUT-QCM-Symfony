@@ -31,7 +31,7 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=25, unique=true)
      */
 
-    private $firtsname;
+    private $firstname;
     /**
      * @ORM\Column(type="string", length=25, unique=true)
      */
@@ -259,25 +259,25 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * Get firtsname
+     * Get firstname
      *
      * @return string
      */
-    public function getFirtsname()
+    public function getFirstname()
     {
-        return $this->firtsname;
+        return $this->firstname;
     }
 
     /**
-     * Set firtsname
+     * Set firstname
      *
      * @param string $firtsname
      *
      * @return User
      */
-    public function setFirtsname($firtsname)
+    public function setFirstname($firstname)
     {
-        $this->firtsname = $firtsname;
+        $this->firstname = $firstname;
 
         return $this;
     }
