@@ -62,6 +62,16 @@ class Reponse
     }
 
     /**
+     * Get intitule
+     *
+     * @return string
+     */
+    public function getIntitule()
+    {
+        return $this->intitule;
+    }
+
+    /**
      * Set intitule
      *
      * @param string $intitule
@@ -76,13 +86,13 @@ class Reponse
     }
 
     /**
-     * Get intitule
+     * Get correcte
      *
-     * @return string
+     * @return bool
      */
-    public function getIntitule()
+    public function getCorrecte()
     {
-        return $this->intitule;
+        return $this->correcte;
     }
 
     /**
@@ -100,13 +110,13 @@ class Reponse
     }
 
     /**
-     * Get correcte
+     * Get question
      *
-     * @return bool
+     * @return \IUT\QCMBundle\Entity\Question
      */
-    public function getCorrecte()
+    public function getQuestion()
     {
-        return $this->correcte;
+        return $this->question;
     }
 
     /**
@@ -121,15 +131,5 @@ class Reponse
         $this->question = $question;
 
         return $this;
-    }
-
-    /**
-     * Get question
-     *
-     * @return \IUT\QCMBundle\Entity\Question
-     */
-    public function getQuestion()
-    {
-        return $this->question;
     }
 }

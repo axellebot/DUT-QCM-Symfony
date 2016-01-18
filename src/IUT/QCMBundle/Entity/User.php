@@ -30,6 +30,17 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=25, unique=true)
      */
+
+    private $firtsname;
+    /**
+     * @ORM\Column(type="string", length=25, unique=true)
+     */
+    private $lastname;
+
+
+    /**
+     * @ORM\Column(type="string", length=25, unique=true)
+     */
     private $username;
 
     /**
@@ -243,6 +254,54 @@ class User implements UserInterface, \Serializable
     public function setRole($role)
     {
         $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * Get firtsname
+     *
+     * @return string
+     */
+    public function getFirtsname()
+    {
+        return $this->firtsname;
+    }
+
+    /**
+     * Set firtsname
+     *
+     * @param string $firtsname
+     *
+     * @return User
+     */
+    public function setFirtsname($firtsname)
+    {
+        $this->firtsname = $firtsname;
+
+        return $this;
+    }
+
+    /**
+     * Get lastname
+     *
+     * @return string
+     */
+    public function getLastname()
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * Set lastname
+     *
+     * @param string $lastname
+     *
+     * @return User
+     */
+    public function setLastname($lastname)
+    {
+        $this->lastname = $lastname;
 
         return $this;
     }

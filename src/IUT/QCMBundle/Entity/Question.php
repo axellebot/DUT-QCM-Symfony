@@ -68,6 +68,13 @@ class Question
      */
     private $reponsesUser;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->reponses = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -150,13 +157,6 @@ class Question
 
         return $this;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->reponses = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Add reponse
@@ -192,5 +192,39 @@ class Question
     public function getReponses()
     {
         return $this->reponses;
+    }
+
+    /**
+     * Add reponsesUser
+     *
+     * @param \IUT\QCMBundle\Entity\ReponseUser $reponsesUser
+     *
+     * @return Question
+     */
+    public function addReponsesUser(\IUT\QCMBundle\Entity\ReponseUser $reponsesUser)
+    {
+        $this->reponsesUser[] = $reponsesUser;
+
+        return $this;
+    }
+
+    /**
+     * Remove reponsesUser
+     *
+     * @param \IUT\QCMBundle\Entity\ReponseUser $reponsesUser
+     */
+    public function removeReponsesUser(\IUT\QCMBundle\Entity\ReponseUser $reponsesUser)
+    {
+        $this->reponsesUser->removeElement($reponsesUser);
+    }
+
+    /**
+     * Get reponsesUser
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReponsesUser()
+    {
+        return $this->reponsesUser;
     }
 }
