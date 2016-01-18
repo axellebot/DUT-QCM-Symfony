@@ -33,13 +33,13 @@ class User implements UserInterface, \Serializable
 
     private $firstname;
     /**
-     * @ORM\Column(type="string", length=25, unique=true)
+     * @ORM\Column(type="string", length=25, unique=false)
      */
     private $lastname;
 
 
     /**
-     * @ORM\Column(type="string", length=25, unique=true)
+     * @ORM\Column(type="string", length=25, unique=false)
      */
     private $username;
 
