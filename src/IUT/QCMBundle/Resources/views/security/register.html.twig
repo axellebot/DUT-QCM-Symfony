@@ -11,8 +11,13 @@
                 <div class="card-content">
                     <span class="card-title">Inscription</span>
                     <div class="input-field">
+                        {{ form_row(form.firstname) }}
+                    </div>
+                    <div class="input-field">
+                        {{ form_row(form.lastname) }}
+                    </div>
+                    <div class="input-field">
                         {{ form_row(form.username) }}
-
                     </div>
                     <div class="input-field">
                         {{ form_row(form.email) }}
