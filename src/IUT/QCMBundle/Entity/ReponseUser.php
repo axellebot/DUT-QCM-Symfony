@@ -43,7 +43,20 @@ class ReponseUser
      */
     private $question;
 
-
+    /**
+     * @var User
+     *
+     * @ORM\ManyToOne(
+     *     targetEntity="User",
+     *     inversedBy="reponsesUser"
+     * )
+     * @ORM\JoinColumn(
+     *     name="eleveId",
+     *     referencedColumnName="id",
+     *     nullable=false
+     * )
+     */
+    private $eleve;
 
 
     /**
@@ -102,5 +115,29 @@ class ReponseUser
     public function getQuestion()
     {
         return $this->question;
+    }
+
+    /**
+     * Set eleve
+     *
+     * @param \IUT\QCMBundle\Entity\User $eleve
+     *
+     * @return ReponseUser
+     */
+    public function setEleve(\IUT\QCMBundle\Entity\User $eleve)
+    {
+        $this->eleve = $eleve;
+
+        return $this;
+    }
+
+    /**
+     * Get eleve
+     *
+     * @return \IUT\QCMBundle\Entity\User
+     */
+    public function getEleve()
+    {
+        return $this->eleve;
     }
 }

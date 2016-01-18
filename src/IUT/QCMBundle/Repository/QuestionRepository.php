@@ -10,4 +10,18 @@ namespace IUT\QCMBundle\Repository;
  */
 class QuestionRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findOneByIdQuestionnaireJoinedToReponseUser($id){
+        $query = $this->getEntityManager()
+            ->createQuery(
+                'SELECT p, c FROM AppBundle:Product p
+            JOIN p.category c
+            WHERE p.id = :id'
+            )->setParameter('id', $id);
+
+        try {
+            return $query->getSingleResult();
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            return null;
+        }
+    }
 }

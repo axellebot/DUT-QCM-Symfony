@@ -69,6 +69,18 @@ class User implements UserInterface, \Serializable
      */
     private $isActive;
 
+    /**
+     * @var array
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="ReponseUser",
+     *     mappedBy="eleve",
+     *     cascade={"remove", "persist"},
+     *     fetch="EAGER"
+     * )
+     */
+    private $reponsesUser;
+
     public function __construct()
     {
         $this->isActive = true;
@@ -303,5 +315,39 @@ class User implements UserInterface, \Serializable
         $this->lastname = $lastname;
 
         return $this;
+    }
+
+    /**
+     * Add reponsesUser
+     *
+     * @param \IUT\QCMBundle\Entity\ReponseUser $reponsesUser
+     *
+     * @return User
+     */
+    public function addReponsesUser(\IUT\QCMBundle\Entity\ReponseUser $reponsesUser)
+    {
+        $this->reponsesUser[] = $reponsesUser;
+
+        return $this;
+    }
+
+    /**
+     * Remove reponsesUser
+     *
+     * @param \IUT\QCMBundle\Entity\ReponseUser $reponsesUser
+     */
+    public function removeReponsesUser(\IUT\QCMBundle\Entity\ReponseUser $reponsesUser)
+    {
+        $this->reponsesUser->removeElement($reponsesUser);
+    }
+
+    /**
+     * Get reponsesUser
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReponsesUser()
+    {
+        return $this->reponsesUser;
     }
 }
