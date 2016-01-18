@@ -27,13 +27,11 @@
                                     <div class="right"><a href="/admin/user/{{ user.id }}/delete"
                                                           class="btn waves-effect waves-light red"><i
                                                     class="material-icons left">delete</i>Supprimer</a></div>
-                                    <div class="left"><a href="/admin/user/{{ user.id }}/delete"
+                                    <div class="left"><a href="/admin/user/{{ user.id }}/modify"
                                                          class="btn waves-effect waves-green blue-grey"><i
                                                     class="material-icons right">edit</i>Modifier</a></div>
                                 </div>
                             </div>
-
-
                             {% if user.id==app.user.id %}
                                 <li class="collection-item blue-grey white-text">
                                     <div>{{ user.username }} (Me)
@@ -42,7 +40,7 @@
                                            data-delay="50" data-tooltip="Supprimer">
                                             <i class="material-icons white-text">delete</i>
                                         </a>
-                                        <a href="/admin/user/{{ user.id }}/delete" class="secondary-content tooltipped"
+                                        <a href="/admin/user/{{ user.id }}/modify" class="secondary-content tooltipped"
                                            data-position="top"
                                            data-delay="50" data-tooltip="Modifier">
                                             <i class="material-icons white-text">mode_edit</i>
