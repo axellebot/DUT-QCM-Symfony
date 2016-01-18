@@ -31,6 +31,13 @@ security:
                 path:   /logout
                 target: /
     access_control:
+            - { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/profile, role: ROLE_USER }
+            - { path: /add, role: ROLE_PROF }
+
+            # require ROLE_ADMIN for /admin*
+            - { path: ^/admin, roles: ROLE_ADMIN }
 
     encoders:
         IUT\QCMBundle\Entity\User:
@@ -38,6 +45,7 @@ security:
 
     role_hierarchy:
     #Les Variables doivent commencer par "ROLE_"
-        ROLE_ADMIN: [ROLE_PROF, ROLE_ELEVE]  #ROLE_ALLOWED_TO_SWITCH  #Role de l'admin
-        ROLE_PROF :   #Role du prof
-        ROLE_ELEVE :  #Role de l'élève
+        ROLE_ADMIN: [ROLE_PROF, ROLE_ELEVE, ROLE_USER]  #ROLE_ALLOWED_TO_SWITCH  #Role de l'admin
+        ROLE_PROF :  ROLE_USER #Role du prof
+        ROLE_ELEVE : ROLE_USER #Role de l'élève
+        ROLE_USER : #ROLE CONNECTÉ
