@@ -8,7 +8,7 @@
             <form action="/admin/user/{{ user.id }}/modify" class="" method="post">
                 <div class="card hoverable">
                     <div class="card-content">
-                        <span class="card-title">Profil</span>
+                        <span class="card-title">{{ user.id }} - {{ user.firstname}} {{ user.lastname }}</span>
                         <div class="input-field">
                             <input class="validate" type="text" id="firstname" value="{{ user.firstname }}"
                                    name="_firstname"
