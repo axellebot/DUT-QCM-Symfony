@@ -3,9 +3,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+
 
     <div class="row" id="login" class="">
         <div class="col s12 m6 offset-m3 l6 offset-l3">
@@ -22,6 +20,9 @@
                             <input class="validate" type="password" id="password" name="_password" required/>
                             <label for="password">Mot de passe</label>
                         </div>
+                        {% if error %}
+                            <p class="center">{{ error.messageKey|trans(error.messageData, 'security','FR') }}</p>
+                        {% endif %}
                     </div>
                     <div class="card-action center">
                         <a class="btn waves-effect white  blue-grey-text" href="/register">

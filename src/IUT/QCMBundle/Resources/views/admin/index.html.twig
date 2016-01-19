@@ -11,7 +11,8 @@
                             <!-- Modal Structure -->
                             <div id="modal_{{ user.id }}" class="modal">
                                 <div class="modal-content">
-                                    <a href="#" class="btn-floating right modal-close waves-effect waves-light black"><i class="material-icons">close</i></a>
+                                    <a href="#" class="btn-floating right modal-close waves-effect waves-light black"><i
+                                                class="material-icons">close</i></a>
                                     <h4 class="center">{{ user.username }}</h4>
                                     <p class="flow-text">
                                         <b>Id :</b> {{ user.id }}<br/>
@@ -23,27 +24,58 @@
                                     </p>
                                 </div>
                                 <div class="modal-footer center">
-                                    <div class="right"><a href="/admin/user/{{ user.id }}/delete" class="btn waves-effect waves-light red"><i class="material-icons left">delete</i>Supprimer</a></div>
-                                    <div class="left"><a href="/admin/user/{{ user.id }}/delete" class="btn waves-effect waves-green blue-grey"><i class="material-icons right">edit</i>Modifier</a></div>
+                                    <div class="right"><a href="/admin/user/{{ user.id }}/delete"
+                                                          class="btn waves-effect waves-light red"><i
+                                                    class="material-icons left">delete</i>Supprimer</a></div>
+                                    <div class="left"><a href="/admin/user/{{ user.id }}/modify"
+                                                         class="btn waves-effect waves-green blue-grey"><i
+                                                    class="material-icons right">edit</i>Modifier</a></div>
                                 </div>
                             </div>
+                            {% if user.id==app.user.id %}
+                                <li class="collection-item blue-grey white-text">
+                                    <div>{{ user.username }} (Moi)
+                                        <a href="/admin/user/{{ user.id }}/delete" class="secondary-content tooltipped"
+                                           data-position="right"
+                                           data-delay="50" data-tooltip="Supprimer">
+                                            <i class="material-icons white-text">delete</i>
+                                        </a>
+                                        <a href="/admin/user/{{ user.id }}/modify" class="secondary-content tooltipped"
+                                           data-position="top"
+                                           data-delay="50" data-tooltip="Modifier">
+                                            <i class="material-icons white-text">mode_edit</i>
+                                        </a>
+                                        <a href="#modal_{{ user.id }}"
+                                           class="secondary-content tooltipped modal-trigger"
+                                           data-position="left"
+                                           data-delay="50" data-tooltip="Voir">
+                                            <i class="material-icons white-text">visibility</i>
+                                        </a>
+                                    </div>
+                                </li>
+                            {% else %}
+                                <li class="collection-item">
+                                    <div>{{ user.username }}
+                                        <a href="/admin/user/{{ user.id }}/delete" class="secondary-content tooltipped"
+                                           data-position="right"
+                                           data-delay="50" data-tooltip="Supprimer">
+                                            <i class="material-icons red-text">delete</i>
+                                        </a>
+                                        <a href="/admin/user/{{ user.id }}/modify" class="secondary-content tooltipped"
+                                           data-position="top"
+                                           data-delay="50" data-tooltip="Modifier">
+                                            <i class="material-icons light-blue-text">mode_edit</i>
+                                        </a>
+                                        <a href="#modal_{{ user.id }}"
+                                           class="secondary-content tooltipped modal-trigger"
+                                           data-position="left"
+                                           data-delay="50" data-tooltip="Voir">
+                                            <i class="material-icons light-blue-text">visibility</i>
+                                        </a>
+                                    </div>
+                                </li>
+                            {% endif %}
 
-                            <li class="collection-item">
-                                <div>{{ user.username }}
-                                    <a href="/admin/user/{{ user.id }}/delete" class="secondary-content tooltipped" data-position="right"
-                                       data-delay="50" data-tooltip="Supprimer">
-                                        <i class="material-icons red-text">delete</i>
-                                    </a>
-                                    <a href="/admin/user/{{ user.id }}/delete" class="secondary-content tooltipped" data-position="top"
-                                       data-delay="50" data-tooltip="Modifier">
-                                        <i class="material-icons light-blue-text">mode_edit</i>
-                                    </a>
-                                    <a href="#modal_{{ user.id }}" class="secondary-content tooltipped modal-trigger" data-position="left"
-                                       data-delay="50" data-tooltip="Voir">
-                                        <i class="material-icons light-blue-text">visibility</i>
-                                    </a>
-                                </div>
-                            </li>
                         {% endfor %}
                     </ul>
                 </div>

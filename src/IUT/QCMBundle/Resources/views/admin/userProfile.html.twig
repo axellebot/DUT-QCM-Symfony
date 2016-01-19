@@ -1,0 +1,87 @@
+{# app/Resources/views/security.profile.html.twig #}
+{# ... you will probably extends your base template, like base.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row" id="userProfile" class="">
+        <div class="col s12 m6 offset-m3 l6 offset-l3">
+            <form action="/admin/user/{{ user.id }}/modify" class="" method="post">
+                <div class="card hoverable">
+                    <div class="card-content">
+                        <span class="card-title">{{ user.id }} - {{ user.firstname}} {{ user.lastname }}</span>
+                        <div class="input-field">
+                            <input class="validate" type="text" id="firstname" value="{{ user.firstname }}"
+                                   name="_firstname"
+                                   required/>
+                            <label for="firstname">Prénom</label>
+                        </div>
+                        {% if messageFirstname %}
+                            <p class="center">{{ messageFirstname }}</p>
+                        {% endif %}
+                        <div class="input-field">
+                            <input class="validate" type="text" id="lastname" value="{{ user.lastname }}"
+                                   name="_lastname"
+                                   required/>
+                            <label for="lastname">Nom</label>
+                        </div>
+                        {% if messageLastname %}
+                            <p class="center">{{ messageLastname }}</p>
+                        {% endif %}
+                        <div class="input-field">
+                            <input class="validate" type="text" id="username"
+                                   value={{ user.username }} name="_username"
+                                   required/>
+                            <label for="username">Pseudo</label>
+                        </div>
+                        {% if messageUsername %}
+                            <p class="center">{{ messageUsername }}</p>
+                        {% endif %}
+                        <div class="input-field">
+                            <input class="validate" type="email" id="email" value={{ user.email }} name="_email"
+                                   required/>
+                            <label for="email">E-mail</label>
+                        </div>
+                        {% if messageEmail %}
+                            <p class="center">{{ messageEmail }}</p>
+                        {% endif %}
+
+
+                        <p>
+                            {% if user.role=='A' or user.role=='a' %}
+                                <input class="with-gap" name="group1" type="radio" id="admin" checked/>
+                            {% else %}
+                                <input class="with-gap" name="group1" type="radio" id="admin"/>
+                            {% endif %}
+                            <label for="admin">Admin</label>
+                        </p>
+                        <p>
+                            {% if user.role=='P' or user.role=='p' %}
+                                <input class="with-gap" name="group1" type="radio" id="prof" checked/>
+                            {% else %}
+                                <input class="with-gap" name="group1" type="radio" id="prof"/>
+                            {% endif %}
+                            <label for="prof">Professeur</label>
+                        </p>
+                        <p>
+                            {% if user.role=='E' or user.role=='e' %}
+                                <input class="with-gap" name="group1" type="radio" id="eleve" checked/>
+                            {% else %}
+                                <input class="with-gap" name="group1" type="radio" id="eleve"/>
+                            {% endif %}
+                            <label for="eleve">Élève</label>
+                        </p>
+                        {% if messageGlobal %}
+                            <p class="center">{{ messageGlobal }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="card-action center">
+                        <button class="btn waves-effect white  blue-grey-text" type="submit" name="action">
+                            Modifier<i class="material-icons right">create</i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock body %}
