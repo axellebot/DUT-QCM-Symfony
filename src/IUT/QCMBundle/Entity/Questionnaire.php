@@ -35,10 +35,16 @@ class Questionnaire
      */
     private $nom;
 
+
     /**
-     * @ORM\OneToMany(targetEntity="Question",mappedBy="idQuestionnaire")
+     * @var array
      *
-     * @ORM\Column(name="questions", type="integer")
+     * @ORM\OneToMany(
+     *     targetEntity="Question",
+     *     mappedBy="questionnaire",
+     *     cascade={"remove", "persist"},
+     *     fetch="EAGER"
+     * )
      */
     private $questions;
 
@@ -104,7 +110,7 @@ class Questionnaire
     /**
      * Get questions
      *
-     * @return string
+     * @return array
      */
     public function getQuestions()
     {
@@ -123,5 +129,36 @@ class Questionnaire
         $this->questions = $questions;
 
         return $this;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->questions = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add question
+     *
+     * @param \IUT\QCMBundle\Entity\Question $question
+     *
+     * @return Questionnaire
+     */
+    public function addQuestion(\IUT\QCMBundle\Entity\Question $question)
+    {
+        $this->questions[] = $question;
+
+        return $this;
+    }
+
+    /**
+     * Remove question
+     *
+     * @param \IUT\QCMBundle\Entity\Question $question
+     */
+    public function removeQuestion(\IUT\QCMBundle\Entity\Question $question)
+    {
+        $this->questions->removeElement($question);
     }
 }

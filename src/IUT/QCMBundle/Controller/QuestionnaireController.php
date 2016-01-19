@@ -4,6 +4,7 @@ namespace IUT\QCMBundle\Controller;
 
 use IUT\QCMBundle\Entity\Question;
 use IUT\QCMBundle\Entity\Questionnaire;
+use IUT\QCMBundle\Entity\Reponse;
 use IUT\QCMBundle\Entity\ReponseUser;
 use IUT\QCMBundle\Entity\User;
 use IUT\QCMBundle\Form\QuestionnaireType;
@@ -67,7 +68,7 @@ class QuestionnaireController extends Controller
             ->getRepository('IUTQCMBundle:Question')
             ->createQueryBuilder('q')
             ->leftJoin("IUTQCMBundle:ReponseUser", "ru", "WITH", "q.id = ru.question")
-            ->where('q.idQuestionnaire = :id')
+            ->where('q.questionnaire = :id')
             ->setParameter('id', $questionnaire->getId())
             ->andWhere('ru.question IS NULL')
             ->getQuery()
