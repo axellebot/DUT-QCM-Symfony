@@ -23,6 +23,7 @@ class ProfileController extends Controller
         $username = $user->getUsername();
         $password = $user->getPassword();
         $email = $user->getEmail();
+
         $messageFirstname = null;
         $messageLastname = null;
         $messageUsername = null;
@@ -53,12 +54,12 @@ class ProfileController extends Controller
                     }
                     if ($postUsername != $username) {
                         $user->setLastname($postLastname);
-                        $messageLastname = "Nom modifité";
+                        $messageLastname = "Nom modifié";
                     }
                     if ($postUsername != $username) {
                         //souhaite changer son username
                         $user->setUsername($postUsername);
-                        $messageUsername = "Pseudo modifité";
+                        $messageUsername = "Pseudo modifié";
                     }
                     if ($postEmail != $email) {
                         //souhaite changer son mail
@@ -99,10 +100,10 @@ class ProfileController extends Controller
                         );
                     }
                 } else {
-                    $messageGlobal = "Mot de passe incorrect";
+                    $messagePassword = "Mot de passe incorrect";
                 }
             } else {
-                $messagePassword = "Aucun changement à appliquer changement";
+                $messageGlobal = "Aucun changement à appliquer changement";
             }
         }
 

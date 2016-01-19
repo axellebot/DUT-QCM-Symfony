@@ -8,7 +8,7 @@
             <form action="/admin/user/{{ user.id }}/modify" class="" method="post">
                 <div class="card hoverable">
                     <div class="card-content">
-                        <span class="card-title">{{ user.id }} - {{ user.firstname}} {{ user.lastname }}</span>
+                        <span class="card-title">{{ user.id }} - {{ user.firstname }} {{ user.lastname }}</span>
                         <div class="input-field">
                             <input class="validate" type="text" id="firstname" value="{{ user.firstname }}"
                                    name="_firstname"
@@ -44,32 +44,35 @@
                         {% if messageEmail %}
                             <p class="center">{{ messageEmail }}</p>
                         {% endif %}
-
-
                         <p>
                             {% if user.role=='A' or user.role=='a' %}
-                                <input class="with-gap" name="group1" type="radio" id="admin" checked/>
+                                <input class="with-gap" name="_role" type="radio" id="checkAdmin" value="admin"
+                                       checked/>
                             {% else %}
-                                <input class="with-gap" name="group1" type="radio" id="admin"/>
+                                <input class="with-gap" name="_role" type="radio" id="checkAdmin" value="admin"/>
                             {% endif %}
-                            <label for="admin">Admin</label>
+                            <label for="checkAdmin">Admin</label>
                         </p>
                         <p>
                             {% if user.role=='P' or user.role=='p' %}
-                                <input class="with-gap" name="group1" type="radio" id="prof" checked/>
+                                <input class="with-gap" name="_role" type="radio" id="checkProf" value="prof" checked/>
                             {% else %}
-                                <input class="with-gap" name="group1" type="radio" id="prof"/>
+                                <input class="with-gap" name="_role" type="radio" id="checkProf" value="prof"/>
                             {% endif %}
-                            <label for="prof">Professeur</label>
+                            <label for="checkProf">Professeur</label>
                         </p>
                         <p>
                             {% if user.role=='E' or user.role=='e' %}
-                                <input class="with-gap" name="group1" type="radio" id="eleve" checked/>
+                                <input class="with-gap" name="_role" type="radio" id="checkEleve" value="eleve"
+                                       checked/>
                             {% else %}
-                                <input class="with-gap" name="group1" type="radio" id="eleve"/>
+                                <input class="with-gap" name="_role" type="radio" id="checkEleve" value="eleve"/>
                             {% endif %}
-                            <label for="eleve">Élève</label>
+                            <label for="checkEleve">Élève</label>
                         </p>
+                        {% if messageRole %}
+                            <p class="center">{{ messageRole }}</p>
+                        {% endif %}
                         {% if messageGlobal %}
                             <p class="center">{{ messageGlobal }}</p>
                         {% endif %}

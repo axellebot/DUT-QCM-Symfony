@@ -45,7 +45,7 @@ class AdminController extends Controller
      * @param $id
      * @return redirect
      */
-    public function modifyUser($id ,Request $request)
+    public function modifyUser($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -55,30 +55,103 @@ class AdminController extends Controller
         $lastname = $user->getLastname();
         $username = $user->getUsername();
         $email = $user->getEmail();
+        $role = $user->getRole();
 
         $messageFirstname = null;
         $messageLastname = null;
         $messageUsername = null;
         $messageEmail = null;
+        $messageRole = null;
         $messageGlobal = null;
 
 
         if ($request->getMethod() == 'POST') {
-            //$em->remove($user);
-            //$em->flush();
-        }
+            $postFirstname = $request->request->get('_firstname');
+            $postLastname = $request->request->get('_lastname');
+            $postUsername = $request->request->get('_username');
+            $postEmail = $request->request->get('_email');
+            $postRole = $request->request->get('_role');
 
+            switch ($postRole) {
+                case"admin":
+                    $postRole = "A";
+                    break;
+                case "prof":
+                    $postRole = "P";
+                    break;
+                case "eleve":
+                    $postRole = "E";
+                    break;
+                default:
+                    $postRole = "E";
+                    break;
+            }
+            if ($postFirstname != $firstname || $postLastname != $lastname || $postUsername != $username || $postEmail != $email || $postRole != $role) {
+                if ($postFirstname != $firstname) {
+                    $user->setFirstname($postFirstname);
+                    $messageFirstname = "Prénom modifié";
+                }
+                if ($postUsername != $username) {
+                    $user->setLastname($postLastname);
+                    $messageLastname = "Nom modifié";
+                }
+                if ($postUsername != $username) {
+                    //souhaite changer son username
+                    $user->setUsername($postUsername);
+                    $messageUsername = "Pseudo modifié";
+                }
+                if ($postEmail != $email) {
+                    //souhaite changer son mail
+                    $user->setEmail($postEmail);
+                    $messageEmail = "Mail modifié";
+                }
+                if ($postRole != $role) {
+                    //souhaite changer son role
+                    $user->setRole($postRole);
+                    $messageRole = "Role modifié";
+                }
+
+                $manager = $this->getDoctrine()->getManager();
+                $manager->persist($user);
+
+                try {
+                    $manager->flush();
+                } catch (\Exception $e) {
+                    $msg = '### Message ### \n' . $e->getMessage() . '\n### Trace ### \n' . $e->getTraceAsString();
+                    $this->container->get('logger')->critical($msg);
+                    // Here put you logic now you now that the flush has failed and all subsequent flush will fail as well
+                    $messageGlobal = "Pseudo ou E-mail déjà utilisé";
+
+                    return $this->render(
+                        'IUTQCMBundle:admin:userProfile.html.twig',
+                        array(
+                            'user' => $user,
+                            'messageFirstname' => null,
+                            'messageLastname' => null,
+                            'messageUsername' => null,
+                            'messageEmail' => null,
+                            'messageRole' => null,
+                            'messageGlobal' => $messageGlobal,
+                        )
+                    );
+                }
+            } else {
+                $messageGlobal = "Aucun changement à appliquer changement";
+            }
+        }
 
 
         return $this->render(
             'IUTQCMBundle:admin:userProfile.html.twig',
             array(
-                'user'=>$user,
+                'user' => $user,
                 'messageFirstname' => $messageFirstname,
                 'messageLastname' => $messageLastname,
                 'messageUsername' => $messageUsername,
                 'messageEmail' => $messageEmail,
+                'messageRole' => $messageRole,
                 'messageGlobal' => $messageGlobal,
             )
-        );    }
+        );
+    }
 }
