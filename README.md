@@ -32,3 +32,14 @@ Link [here](https://drive.google.com/open?id=0B9IaJWWo5LxfWWFqVlBkemw4QlE)
 Deployed on :
 
 * [lebot.xyz](qcm.lebot.xyz)
+
+##Try as :
+* Admin :
+  * login : admin
+  * password : admin
+* Professor :
+  * login : prof
+  * password : prof
+* Student :
+  * login : eleve
+  * password : eleve
