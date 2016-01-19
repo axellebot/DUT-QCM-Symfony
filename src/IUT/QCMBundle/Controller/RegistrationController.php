@@ -11,6 +11,7 @@ namespace IUT\QCMBundle\Controller;
 use IUT\QCMBundle\Form\UserType;
 use IUT\QCMBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -37,10 +38,24 @@ class RegistrationController extends Controller
             $user->setPassword($password);
             $user->setRole("E");
 
-            // 4) save the User!
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
+
+            try {
+                // 4) save the User!
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($user);
+                $em->flush();
+            } catch (\Exception  $e) {
+                $msg = '### Message ### \n' . $e->getMessage() . '\n### Trace ### \n' . $e->getTraceAsString();
+                $this->container->get('logger')->critical($msg);
+                // Here put you logic now you now that the flush has failed and all subsequent flush will fail as well
+
+                return $this->render(
+                    '@IUTQCM/security/register.html.twig',
+                    array('form' => $form->createView(),
+                        'globalMessage' => "E-mail ou Pseudo déjà utilisé"
+                    )
+                );
+            }
 
             // ... do any other work - like send them an email, etc
             // maybe set a "flash" success message for the user
@@ -50,7 +65,8 @@ class RegistrationController extends Controller
 
         return $this->render(
             '@IUTQCM/security/register.html.twig',
-            array('form' => $form->createView())
+            array('form' => $form->createView(),
+                'globalMessage'=>null)
         );
     }
 }
