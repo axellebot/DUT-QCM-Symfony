@@ -28,6 +28,9 @@
                     <div class="input-field">
                         {{ form_row(form.plainPassword.second) }}
                     </div>
+                    {% if globalMessage %}
+                        <p class="center">{{ globalMessage }}</p>
+                    {% endif %}
                 </div>
                 <div class="card-action center">
                     <button class="btn waves-effect white  blue-grey-text" type="submit" name="action">
