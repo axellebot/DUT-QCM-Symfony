@@ -15,6 +15,7 @@ A Symfony project created by MarvinLockwood, axellebot.
 
 ##To deploy Production
 ###On Apache 2 :
+* create your database for the application
 * follow the official tuto [here](http://symfony.com/doc/current/cookbook/deployment/tools.html)
 * made redirection on "web" directory :
 * change access to the project directory : run "sudo setfacl -dR -m u:www-data:rwX path_of_directory"
