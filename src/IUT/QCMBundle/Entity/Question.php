@@ -21,13 +21,21 @@ class Question
      */
     private $id;
 
+
     /**
-     * @var int
-     * @ORM\ManyToOne(targetEntity="Questionnaire",inversedBy="questions")
-     * @@ORM\JoinColumn(name="questionnaire_id",referencedColumnName="id")
-     * @ORM\Column(name="idQuestionnaire", type="integer")
+     * @var Questionnaire
+     *
+     * @ORM\ManyToOne(
+     *     targetEntity="Questionnaire",
+     *     inversedBy="questions"
+     * )
+     * @ORM\JoinColumn(
+     *     name="questionnaireId",
+     *     referencedColumnName="id",
+     *     nullable=false
+     * )
      */
-    private $idQuestionnaire;
+    private $questionnaire;
 
     /**
      * @var int
@@ -84,30 +92,6 @@ class Question
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getIdQuestionnaire()
-    {
-        return $this->idQuestionnaire;
-    }
-
-    /**
-     * Set idQuestionnaire
-     *
-     * @param integer $idQuestionnaire
-     *
-     * @return Question
-     */
-    public function setIdQuestionnaire($idQuestionnaire)
-    {
-        $this->idQuestionnaire = $idQuestionnaire;
-
-        return $this;
     }
 
     /**
@@ -226,5 +210,29 @@ class Question
     public function getReponsesUser()
     {
         return $this->reponsesUser;
+    }
+
+    /**
+     * Set questionnaire
+     *
+     * @param \IUT\QCMBundle\Entity\Questionnaire $questionnaire
+     *
+     * @return Question
+     */
+    public function setQuestionnaire(\IUT\QCMBundle\Entity\Questionnaire $questionnaire = null)
+    {
+        $this->questionnaire = $questionnaire;
+
+        return $this;
+    }
+
+    /**
+     * Get questionnaire
+     *
+     * @return \IUT\QCMBundle\Entity\Questionnaire
+     */
+    public function getQuestionnaire()
+    {
+        return $this->questionnaire;
     }
 }
