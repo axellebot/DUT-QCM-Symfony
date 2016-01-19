@@ -3,10 +3,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %} {# modèle body <body>#}
-    {{ dump(questionnaire) }}
     <div class="row" id="questionnaire-add">
         <div class="col s12 m6 offset-m3 l6 offset-l3">
-            <div class="card-panel hoverable center-align valign"><h4>Fin du questionnaire</h4></div>
+            <div class="card-panel hoverable center-align valign"><h3>Fin du questionnaire</h3><br><h4>{{ questionnaire.nom }}e</h4></div>
         </div>
     </div>
 {% endblock body %} {# modèle body </body>#}

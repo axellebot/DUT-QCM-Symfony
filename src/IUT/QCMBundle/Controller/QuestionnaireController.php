@@ -38,7 +38,6 @@ class QuestionnaireController extends Controller
 
             $user = $this->getUser();
             $questionnaire->setIdAuteur($user->getId());
-            $questionnaire->setQuestions('test');
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($questionnaire);
@@ -103,7 +102,6 @@ class QuestionnaireController extends Controller
         }
         return $this->render('@IUTQCM/Default/questionnaire_end.html.twig', array(
             'questionnaire' => $questionnaire,
-            'question' => $question,
         ));
     }
 }

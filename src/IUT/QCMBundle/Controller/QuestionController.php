@@ -37,17 +37,19 @@ class QuestionController extends Controller
         $form = $this->createForm(QuestionType::class, $question);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $request->request->get('reponse[]', 'default value if bar does not exist');
-            $question->setQuestionnaire($id);
+            $questionnaire = $this->getDoctrine()
+                ->getRepository('IUTQCMBundle:Questionnaire')
+                ->find($id);
+            $question->setQuestionnaire($questionnaire);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($question);
             $em->flush();
-
-           /* return $this->redirect($this->generateUrl('add_reponse', array(
-                'id_questionnaire' => $id,
-                'id_question' => $question->getId()
-            )));*/
+            unset($form);
+            $question = new Question();
+            $question->addReponse(new Reponse());
+            $question->addReponse(new Reponse());
+            $form = $this->createForm(QuestionType::class, $question);
         }
         return $this->render(
             '@IUTQCM/Default/question_add.html.twig',
@@ -70,17 +72,15 @@ class QuestionController extends Controller
         $form = $this->createForm(QuestionType::class, $question);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $request->request->get('reponse[]', 'default value if bar does not exist');
-            $question->setIdQuestionnaire($id);
+            $questionnaire = $this->getDoctrine()
+                ->getRepository('IUTQCMBundle:Questionnaire')
+                ->find($id);
+            $question->setQuestionnaire($questionnaire);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($question);
             $em->flush();
 
-            /* return $this->redirect($this->generateUrl('add_reponse', array(
-                 'id_questionnaire' => $id,
-                 'id_question' => $question->getId()
-             )));*/
         }
         return $this->render(
             '@IUTQCM/Default/question_add.html.twig',
