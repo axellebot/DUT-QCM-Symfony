@@ -41,13 +41,13 @@ class ProfileController extends Controller
             $postNewPasswordFirst = $request->request->get('_newPasswordFirst');
             $postNewPasswordSecond = $request->request->get('_newPasswordSecond');
 
-
             $encoder_service = $this->get('security.encoder_factory');
             $encoder = $encoder_service->getEncoder($user);
-            if ($encoder->isPasswordValid($password, $postPassword, $user->getSalt())) {
-                //autoriser les modification
-                if ($postFirstname != $firstname || $postLastname != $lastname || $postNewPasswordFirst != "" || $postNewPasswordSecond != "" || $postUsername != $username || $postEmail != $email) {
-                     if ($postFirstname != $firstname) {
+
+            if ($postFirstname != $firstname || $postLastname != $lastname || $postNewPasswordFirst != "" || $postNewPasswordSecond != "" || $postUsername != $username || $postEmail != $email) {
+                if ($encoder->isPasswordValid($password, $postPassword, $user->getSalt())) {
+                    //autoriser les modification
+                    if ($postFirstname != $firstname) {
                         $user->setFirstname($postFirstname);
                         $messageFirstname = "Prénom modifié";
                     }
@@ -84,6 +84,7 @@ class ProfileController extends Controller
                         $this->container->get('logger')->critical($msg);
                         // Here put you logic now you now that the flush has failed and all subsequent flush will fail as well
                         $messageGlobal = "Pseudo ou E-mail déjà utilisé";
+
                         return $this->render(
                             'IUTQCMBundle:security:profile.html.twig',
                             array(
@@ -92,16 +93,16 @@ class ProfileController extends Controller
                                 'messageUsername' => null,
                                 'messageEmail' => null,
                                 'messagePassword' => null,
-                                'messagePassword' => null,
+                                'messageNewPassword' => null,
                                 'messageGlobal' => $messageGlobal,
                             )
                         );
                     }
                 } else {
-                    $messageGlobal = "Aucun changement à appliquer changement";
+                    $messageGlobal = "Mot de passe incorrect";
                 }
             } else {
-                $messagePassword = "Mauvais mot de passe";
+                $messagePassword = "Aucun changement à appliquer changement";
             }
         }
 
