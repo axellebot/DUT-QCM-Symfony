@@ -38,7 +38,7 @@ class QuestionController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $request->request->get('reponse[]', 'default value if bar does not exist');
-            $question->setIdQuestionnaire($id);
+            $question->setQuestionnaire($id);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($question);
