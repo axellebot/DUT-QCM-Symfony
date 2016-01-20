@@ -25,7 +25,7 @@ class QuestionnaireController extends Controller
      */
     public function addAction(Request $request)
     {
-        if(!$this->get('security.authorization_checker')->isGranted('ROLE_PROF')){
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_PROF')) {
             return $this->redirect('/');
         }
         $questionnaire = new Questionnaire();
@@ -54,13 +54,34 @@ class QuestionnaireController extends Controller
     }
 
     /**
+     * @Route("/delete/{id}", name="add_questionnaire")
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $questionnaire = $em->getRepository('IUTQCMBundle:Questionnaire')->find($id);
+
+        try {
+            $em->delete($questionnaire);
+            $em->flush();
+        }catch(\Exception $e){
+        }
+
+        return $this->redirect('/');
+    }
+
+    /**
      * @Route("/answer/{id}", name="answer_questionnaire", requirements={"id" = "\d+"})
      * @param Request $request
      * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function answerAction(Request $request, $id){
+    public function answerAction(Request $request, $id)
+    {
         $questionnaire = $this->getDoctrine()->getManager()->getRepository('IUTQCMBundle:Questionnaire')->find($id);
         /** @var Question $question */
         $question = $this->getDoctrine()
@@ -73,7 +94,7 @@ class QuestionnaireController extends Controller
             ->getQuery()
             ->setMaxResults(1)
             ->getOneOrNullResult();
-        if($question != null) {
+        if ($question != null) {
             if ($request->getMethod() == 'POST') {
                 $keys = $request->request->keys();
                 if (count($keys) > 1) {
