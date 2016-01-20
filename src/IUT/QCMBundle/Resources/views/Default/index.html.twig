@@ -23,7 +23,7 @@
                                     {% if is_granted('ROLE_ADMIN') %}
                                         <li class="collection-item">
                                             <div>{{ questionnaire.nom }}
-                                                <a href="" class="secondary-content tooltipped" data-position="right"
+                                                <a href="/delete/{{ questionnaire.id }}" class="secondary-content tooltipped" data-position="right"
                                                    data-delay="50" data-tooltip="Supprimer">
                                                     <i class="material-icons red-text">delete</i>
                                                 </a>

@@ -65,7 +65,7 @@ class QuestionnaireController extends Controller
         $questionnaire = $em->getRepository('IUTQCMBundle:Questionnaire')->find($id);
 
         try {
-            $em->delete($questionnaire);
+            $em->remove($questionnaire);
             $em->flush();
         }catch(\Exception $e){
         }
